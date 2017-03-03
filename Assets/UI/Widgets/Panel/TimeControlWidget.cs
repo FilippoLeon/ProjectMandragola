@@ -23,8 +23,16 @@ public class TimeControlWidget : MonoBehaviour {
             blk.highlightedColor = new Color(0.5f, 0, 0);
             go.GetComponent<Button>().colors = blk;
         }
-            worldController.GetComponent<WorldController>().onSpeedChanged += (int speed) =>
-        {
+
+        worldController.GetComponent<WorldController>().onSpeedChanged += onSpeedChanged;
+        worldController.GetComponent<WorldController>().onTic += () => {
+            speeds[4].GetComponent<Text>().text = "Day " + worldController.GetComponent<WorldController>().time;
+        };
+        onSpeedChanged(worldController.GetComponent<WorldController>().speed);
+    }
+
+    public void onSpeedChanged(int speed)
+    {
             if (speed <= 0) speed = 0;
             for (int i = 0; i < 4; i++)
             {
@@ -34,16 +42,13 @@ public class TimeControlWidget : MonoBehaviour {
                     go.GetComponent<Image>().color = new Color(1f, 0, 0);
                     go.GetComponent<Button>().enabled = false;
 
-                } else
+                }
+                else
                 {
                     go.GetComponent<Image>().color = new Color(1f, 1f, 1f);
                     go.GetComponent<Button>().enabled = true;
                 }
             }
-        };
-        worldController.GetComponent<WorldController>().onTic += () => {
-            speeds[4].GetComponent<Text>().text = "Day " + worldController.GetComponent<WorldController>().time;
-        };
     }
 	
 	// Update is called once per frame

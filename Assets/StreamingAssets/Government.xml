@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prototypes>
+	<!-- Generic bodies and powers may go here, can be referenced. -->
+	<Body id="generic_person" type="individual"/>
+	<Power id="win"/>
+	
+	<!-- All government prototypes with bodies and powers. -->
+	<Government id="custom1" name="My Awesome gvt.">
+		<!-- Generic bodeis and powers can go here, can be referenced -->
+		<Body id="user" name="user" type="user">
+			<!-- Powers to manage members of body -->
+			<!-- Creates New power to select and manage a candidate -->
+			<Action type="appoint"> <!-- Same as new <Power> of type "appoint" for this Body. -->
+					<!-- Requiriment to enact this power -->
+				<Require condition="all">
+					<Body name="god"/>
+					<Legislative/>
+				</Require>
+			</Action>
+			<Action type="appoint"/>
+			<Action type="approve"/>
+			<Action type="impeach"/>
+			<Action type="" rule="and">
+			</Action>
+			<Action type="delete">
+			</Action>
+			<!-- Condition to start a end-of term -->
+			<End condition="all">
+				<Condition type="length">5</Condition>
+				<Condition type="script">endTermUser</Condition>
+			</End>
+		</Body>
+		
+		<Body id="president" type="individual">
+		
+		</Body>
+		<Body id="federalCounsil" type="chamber">
+			<Parameter type="int" name="size">5</Parameter>
+			<Parameter type="lua" name="majority">chamberMajority</Parameter>
+		</Body>
+		
+		<Action>
+		
+		</Action>
+		
+		<!-- Powers and Bodies here are flagged as legislative -->
+		<Legislative>
+			<Body type=""/>
+			<Member name="user"></Member>
+			<Power type="add_law" level=">0">
+				<Action type="propose"/>
+				<Action type="enact"/>
+				<Action type="veto"/>
+				<Action type="enforce"/>
+				<Action type="modify"/>
+				<Action type="repeal">
+					<Requires type="or">
+						
+					</Requires>
+				</Action>
+			</Power>
+			<Power type="appoint" level=">0">
+				<Requires type="or">
+						
+				</Requires>
+			</Power>
+		</Legislative>
+		<Executive>
+		
+		</Executive>
+		<Judiciary>
+			
+		
+		</Judiciary>
+	</Government>
+	<Government>
+	</Government>
+</Prototypes>

@@ -69,7 +69,16 @@ public class Region {
 
         return ret;
     }
-    
+
+    public void increaseRate()
+    {
+        rate += 0.01f;
+    }
+    public void decreaseRate()
+    {
+        rate -= 0.01f;
+    }
+
     public void tic()
     {
         int taxes = (int) (population * rate);

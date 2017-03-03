@@ -8,10 +8,11 @@ public class Country {
 
     public Demography demography = new Demography();
     public Economy economy = new Economy();
+    public Government government;
 
     public Color32 color;
 
-    string name;
+    public string name;
 
     private Region capital_;
     public Region capital
@@ -37,6 +38,12 @@ public class Country {
     public void addRegion(Region region)
     {
         region.country = this;
+    }
+
+    public void tic()
+    {
+        demography.tic();
+        economy.tic();
     }
     
 }

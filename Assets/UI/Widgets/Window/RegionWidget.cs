@@ -9,6 +9,7 @@ public class RegionWidget : MonoBehaviour {
 
     public Text populationText;
     public Text taxText;
+    public Text countryText;
 
     // Use this for initialization
     void Start () {
@@ -22,6 +23,11 @@ public class RegionWidget : MonoBehaviour {
             gameObject.GetComponentInParent<WindowWidget>().setTitle(regionController.region.name);
             populationText.text = StringUtilities.longToShortString(regionController.region.population);
             taxText.text = StringUtilities.floatToPercentage(regionController.region.rate);
+            Country ctry = regionController.region.country;
+            if (ctry != null)
+                countryText.text = "<color=#" + StringUtilities.colorToHex(ctry.color) + ">"
+                    + regionController.region.country.name
+                    + "</color>";
         }
 	}
 

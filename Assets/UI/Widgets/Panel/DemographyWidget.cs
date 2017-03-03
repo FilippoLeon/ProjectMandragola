@@ -10,14 +10,17 @@ public class DemographyWidget : MonoBehaviour {
     public GameObject worldControllerObject;
     public WorldController worldController;
     Text totalPopulationText;
+    //Text totalPopulationDeltaText;
 
     // Use this for initialization
     void Start () {
-        totalPopulationText = GetComponentInChildren<Text>();
         if (worldController == null)
         {
             worldController = worldControllerObject.GetComponentInChildren<WorldController>();
         }
+        Text[] ret = GetComponentsInChildren<Text>();
+        totalPopulationText = ret[0];
+        //totalPopulationDeltaText = ret[1];
     }
 	
 	// Update is called once per frame
@@ -28,7 +31,8 @@ public class DemographyWidget : MonoBehaviour {
         }
         if (demography != null)
         {
-            totalPopulationText.text = StringUtilities.longToShortString(demography.population, 1);
+            totalPopulationText.text = StringUtilities.longToShortString(demography.population, 1)
+                + " (" + StringUtilities.longToShortString(demography.population - demography.old_population, 1) + ")";
         }
 	}
 }

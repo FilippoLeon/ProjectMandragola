@@ -81,6 +81,11 @@
     <Compile Include="Assets\Engine\Country.cs" />
     <Compile Include="Assets\Engine\Demography.cs" />
     <Compile Include="Assets\Engine\Economy.cs" />
+    <Compile Include="Assets\Engine\Government\Body.cs" />
+    <Compile Include="Assets\Engine\Government\Government.cs" />
+    <Compile Include="Assets\Engine\Government\GovnermentManager.cs" />
+    <Compile Include="Assets\Engine\Government\Power.cs" />
+    <Compile Include="Assets\Engine\Government\Stage.cs" />
     <Compile Include="Assets\Engine\Region.cs" />
     <Compile Include="Assets\Engine\State.cs" />
     <Compile Include="Assets\Engine\World.cs" />
@@ -93,12 +98,14 @@
     <Compile Include="Assets\UI\Widgets\Panel\DemographyWidget.cs" />
     <Compile Include="Assets\UI\Widgets\Panel\EconomyWidget.cs" />
     <Compile Include="Assets\UI\Widgets\Panel\TimeControlWidget.cs" />
+    <Compile Include="Assets\UI\Widgets\Window\ChamberViewWidget.cs" />
     <Compile Include="Assets\UI\Widgets\Window\RegionWidget.cs" />
     <Compile Include="Assets\UI\Widgets\WindowWidget.cs" />
     <Compile Include="Assets\Utilities\StringUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\OutlineShader.shader" />
+    <None Include="Assets\StreamingAssets\Government.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

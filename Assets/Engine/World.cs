@@ -54,6 +54,8 @@ public class World {
 
     private Region[,] regions;
 
+    GovernmentManager governmentManager;
+
     public World(Coord2D size_)
     {
         rnd = new System.Random();
@@ -66,6 +68,9 @@ public class World {
                 regions[x, y] = new Region(this, new Coord2D(x, y));
             }
         }
+
+        governmentManager = new GovernmentManager();
+        //
 
         /// GENERATE
         ///
@@ -132,6 +137,14 @@ public class World {
                 }
             }
         }
+
+        //// TEMPORARILY ASSIGN GOV. (randomly) to country
+        int govsize = GovernmentManager.governmentPrototypes.Count;
+        foreach (Country ctry in countries)
+        {
+            int idx = rnd.Next(govsize);
+            ctry.government = GovernmentManager.governmentPrototypes[idx].Clone() as Government;
+        }
     }
 
     public Region getRegionAt(Coord2D coord)
@@ -151,7 +164,11 @@ public class World {
 
     public void tic()
     {
-        foreach(Region region in regions)
+        foreach (Country country in countries)
+        {
+            country.tic();
+        }
+        foreach (Region region in regions)
         {
             region.tic();
         }

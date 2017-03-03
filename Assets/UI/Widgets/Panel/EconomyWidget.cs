@@ -10,6 +10,7 @@ public class EconomyWidget : MonoBehaviour
     public GameObject worldControllerObject;
     public WorldController worldController;
     Text fundsText;
+    //Text fundsTextDelta;
 
     // Use this for initialization
     void Start()
@@ -17,7 +18,9 @@ public class EconomyWidget : MonoBehaviour
         if (worldController == null) {
             worldController = worldControllerObject.GetComponentInChildren<WorldController>();
         }
-        fundsText = GetComponentInChildren<Text>();
+        Text[] ret = GetComponentsInChildren<Text>();
+        fundsText = ret[0];
+        //fundsTextDelta = ret[1];
     }
 
     // Update is called once per frame
@@ -28,7 +31,7 @@ public class EconomyWidget : MonoBehaviour
             economy = worldController.world.thisCountry.economy;
         }
         if (economy != null) {
-            fundsText.text = StringUtilities.longToShortString(economy.funds, 1);
+            fundsText.text = StringUtilities.toCurrency(economy.funds) + " (" + StringUtilities.toCurrency(economy.funds - economy.old_funds) + ")";
         }
     }
 }
