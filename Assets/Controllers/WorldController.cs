@@ -19,8 +19,6 @@ public class WorldController : MonoBehaviour {
     public World world;
     public RegionController selected;
 
-    public GameObject regionViewWindow;
-
     public Material defaultMaterial;
     public Material outlineMaterial;
 
@@ -107,20 +105,12 @@ public class WorldController : MonoBehaviour {
                 }
 
                 selected = objectHit.GetComponentInParent<RegionController>();
-                if (regionViewWindow == null)
+                if (!WindowManager.isOpen("RegionWidget"))
                 {
-                    regionViewWindow = Instantiate(windowPrototype);
-                    regionViewWindow.transform.SetParent(GameObject.Find("Canvas").transform);
-                    //regionViewWindow.transform.position = windowPrototype.transform.position;
-                    //regionViewWindow.transform.localPosition = new Vector3(0, -40, 0);
-                    regionViewWindow.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -40);
-                    GameObject content = Instantiate(regionWidgetPrototype);
-                    content.transform.SetParent(regionViewWindow.transform);
-                    regionViewWindow.SetActive(true);
-                    content.SetActive(true);
+                    WindowManager.openWindow("RegionWidget");
                 }
-                regionViewWindow.SetActive(true);
-                regionViewWindow.GetComponentInChildren<RegionWidget>().regionController = selected;
+                WindowManager.activate("RegionWidget");
+                WindowManager.get("RegionWidget").GetComponentInChildren<RegionWidget>().regionController = selected;
 
                 BarGraph barGraph = objectHit.GetComponent<BarGraph>();
                 if (barGraph != null)

@@ -73,6 +73,9 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="MoonSharp.Interpreter">
+      <HintPath>Assets\Plugins\MoonSharp.Interpreter.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Controllers\CameraController.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Assets\UI\PanelUtilities\TogglePanelButton.cs" />
     <Compile Include="Assets\UI\PanelUtilities\Tooltip.cs" />
     <Compile Include="Assets\UI\PanelUtilities\TooltipDisplayer.cs" />
+    <Compile Include="Assets\UI\Widgets\DynamicWindow.cs" />
     <Compile Include="Assets\UI\Widgets\Panel\DemographyWidget.cs" />
     <Compile Include="Assets\UI\Widgets\Panel\EconomyWidget.cs" />
     <Compile Include="Assets\UI\Widgets\Panel\TimeControlWidget.cs" />
@@ -105,6 +109,8 @@
     <Compile Include="Assets\UI\Widgets\Window\GovBodyWidget.cs" />
     <Compile Include="Assets\UI\Widgets\Window\RegionWidget.cs" />
     <Compile Include="Assets\UI\Widgets\WindowWidget.cs" />
+    <Compile Include="Assets\UI\WindowUtilities\WindowManager.cs" />
+    <Compile Include="Assets\Utilities\SpriteLoader.cs" />
     <Compile Include="Assets\Utilities\StringUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +118,7 @@
     <None Include="Assets\Shaders\OutlineShader.shader" />
     <None Include="Assets\StreamingAssets\Data\Government.xml" />
     <None Include="Assets\StreamingAssets\Data\Laws.xml" />
+    <None Include="Assets\StreamingAssets\Sprites\UISpriteSheet.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

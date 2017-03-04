@@ -45,6 +45,7 @@ public class GovBodyWidget : MonoBehaviour {
     void Start () {
         dropdown = dropdownObject.GetComponent<Dropdown>();
         worldController = worldControllerObject.GetComponent<WorldController>();
+        //gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -52,11 +53,12 @@ public class GovBodyWidget : MonoBehaviour {
 		if(worldController != null && government == null)
         {
             government = worldController.world.thisCountry.government;
+            onSelectedBodyChanged(0);
         }
 	}
 
 
-    List<GameObject> buttons = new List<GameObject>();
+    public List<GameObject> buttons = new List<GameObject>();
 
     public void onSelectedBodyChanged(int idx)
     {
@@ -77,11 +79,12 @@ public class GovBodyWidget : MonoBehaviour {
                     if (stage.requiredBodies.Contains(selectedBody.id))
                     {
                         GameObject go = Instantiate(templateButton);
-                        go.GetComponentInChildren<Text>().text = stage.id;
+                        //go.GetComponentInChildren<Text>().text = stage.id;
                         go.SetActive(true);
                         go.transform.SetParent( buttonPanel.transform );
                         buttons.Add(go);
 
+                        go.GetComponent<Button>().image.sprite = SpriteLoader.getSprite(stage.icon);
                         go.GetComponent<Tooltip>().title = pow.name + "_" + stage.name;
                         string tooltip = stage.requirementType == Stage.RequirementType.All ? "Require all of:\n" : "Requires any of:\n";
                         foreach(string body in stage.requiredBodies)
@@ -104,9 +107,10 @@ public class GovBodyWidget : MonoBehaviour {
     {
         dropdown.ClearOptions();
 
-        if (government.bodies != null)
-            Debug.Log(string.Join("," ,government.bodies.Select(x => x.name).ToArray()));
+        if (government.bodies != null) {
+        //Debug.Log(string.Join("," ,government.bodies.Select(x => x.name).ToArray()));
             dropdown.AddOptions(government.bodies.Select(x => x.name).ToList());
+        }
     }
 
 

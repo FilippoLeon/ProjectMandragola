@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet defaultSize="32,32" defaultPivot="0.5,0.5">
+	<Sprite start="0,480">economy</Sprite>
+	<Sprite start="32,480">demography</Sprite>
+	<Sprite start="64,480">clima</Sprite>
+	<Sprite start="96,480">law</Sprite>
+	<Sprite start="128,480">government</Sprite>
+	
+	
+	<Sprite start="0,416">pause</Sprite>
+	<Sprite start="64,416">speed1</Sprite>
+	<Sprite start="128,416">speed2</Sprite>
+	<Sprite start="192,416">speed3</Sprite>
+	
+	<Sprite start="0,384">propose_law</Sprite>
+	<Sprite start="32,384">repeal_law</Sprite>
+	<Sprite start="64,384">enforce_law</Sprite>
+	<Sprite start="96,384">edit_law</Sprite>
+	<Sprite start="128,384">veto_law</Sprite>
+	<Sprite start="160,384">accept_law</Sprite>
+	
+	<Sprite start="0,352">propose_body</Sprite>
+	<Sprite start="32,352">remove_body</Sprite>
+	<Sprite start="64,352">_body</Sprite>
+	<Sprite start="96,352">edit_body</Sprite>
+	<Sprite start="128,352">delete_body</Sprite>
+	<Sprite start="160,352">approve_body</Sprite>
+</SpriteSheet>

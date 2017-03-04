@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Prototypes>
   <Law id="law1" name="Awesome law">
-	<Parameter type="int" default="10" name="cost"/>
+	<Parameter type="int" default="10" name="_param2"/>
+	<Parameter type="float" default="2.0" range="1.0,3.0" name="_cost"/>
 	<Action type="onEnact">luaAction</Action>
 	<Action type="onRepeal">luaAction</Action>
 	<Action type="onTic">luaAction</Action>
+	<Action type="computeCost">law1ComputeCost</Action>
+	<Gui>
+		<Grid size="2,2">
+			<Label>Label</Label>
+			<Label text="dynamic">luaLabelFunction</Label>
+			<!-- Auto bind to variable -->
+			<Slider>_cost</Slider>
+			<Field>_param2</Field>
+			<Dropdown/>
+			<Button></Button>
+			<Toggle/>
+			<Radio group="_group1">Text</Radio>
+		</Grid>
+	</Gui>
   </Law>
 </Prototypes>

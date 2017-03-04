@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class Law: IXmlSerializable {
     public string id, name;
-    public Dictionary<string, IGenericParameter> parameters;
-    public Dictionary<string, IGenericAction> actions;
+    public Dictionary<string, IGenericParameter> parameters = new Dictionary<string, IGenericParameter>();
+    public Dictionary<string, IGenericAction> actions = new Dictionary<string, IGenericAction>();
 
     public interface IGenericParameter { }
     public interface IGenericAction { }
@@ -27,6 +27,11 @@ public class Law: IXmlSerializable {
         string value;
     }
     public class GenericAction : IGenericAction { }
+
+    public Law()
+    {
+
+    }
 
     public XmlSchema GetSchema()
     {

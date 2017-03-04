@@ -35,7 +35,7 @@ public class Government : IXmlSerializable, ICloneable
         name = reader.GetAttribute("name");
         type = reader.GetAttribute("type");
 
-        Debug.Log(string.Format("New goverment {0} with id {1} and name {2}", type, id, name));
+        //Debug.Log(string.Format("New goverment {0} with id {1} and name {2}", type, id, name));
 
         while (reader.Read())
         {

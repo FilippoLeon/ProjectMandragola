@@ -41,7 +41,7 @@ public class Body : IXmlSerializable, ICloneable
                     break;
             }
         }
-        Debug.Log("New body with id = " + id);
+        //Debug.Log("New body with id = " + id);
     }
 
     public void WriteXml(XmlWriter writer)

@@ -31,6 +31,8 @@ public class TooltipDisplayer : MonoBehaviour
 
             title.text = tooltipComponent.title;
             text.text = tooltipComponent.text;
+
+            gameObject.transform.SetAsLastSibling();
         }
         //RaycastHit hit;
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

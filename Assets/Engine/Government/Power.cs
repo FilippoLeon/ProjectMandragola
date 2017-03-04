@@ -43,7 +43,7 @@ public class Power : IXmlSerializable, ICloneable
                     break;
             }
         }
-        Debug.Log("New power with id = " + id + " and stages " + stages.Count);
+        //Debug.Log("New power with id = " + id + " and stages " + stages.Count);
     }
 
     public void WriteXml(XmlWriter writer)

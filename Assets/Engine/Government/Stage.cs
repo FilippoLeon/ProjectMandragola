@@ -18,6 +18,7 @@ public class Stage : IXmlSerializable, ICloneable
     public RequirementType requirementType;
     public List<string> requiredBodies = new List<string>();
     public Power parent;
+    public string icon;
 
     public Stage() { }
 
@@ -52,22 +53,26 @@ public class Stage : IXmlSerializable, ICloneable
             switch (nodeType)
             {
                 case XmlNodeType.Element:
-                    if(reader.Name.Equals("Require"))
+                    if (reader.Name.Equals("Require"))
                     {
                         requirementType = (RequirementType)
-                            Enum.Parse(typeof(RequirementType), reader.GetAttribute("type"), 
+                            Enum.Parse(typeof(RequirementType), reader.GetAttribute("type"),
                             ignoreCase: true);
                         XmlReader subtree = reader.ReadSubtree();
                         subtree.MoveToContent();
                         while (subtree.Read())
                         {
-                            if( subtree.NodeType == XmlNodeType.Element && 
+                            if (subtree.NodeType == XmlNodeType.Element &&
                                 subtree.Name.Equals("Body"))
                             {
                                 requiredBodies.Add(subtree.GetAttribute("ref"));
                             }
                         }
                         subtree.Close();
+                    }
+                    else if (reader.Name.Equals("Icon"))
+                    {
+                        icon = reader.GetAttribute("name");
                     }
                     break;
                 case XmlNodeType.EndElement:
@@ -76,9 +81,9 @@ public class Stage : IXmlSerializable, ICloneable
             }
         }
 
-        Debug.Log(string.Format("New stage {0} type {1} and {2}", 
-            id, requirementType,
-            string.Join(",", requiredBodies.ToArray())));
+        //Debug.Log(string.Format("New stage {0} type {1} and {2}", 
+        //    id, requirementType,
+        //    string.Join(",", requiredBodies.ToArray())));
     }
 
     void IXmlSerializable.WriteXml(XmlWriter writer)
@@ -92,6 +97,7 @@ public class Stage : IXmlSerializable, ICloneable
         stage.parent = null;
         stage.id = id;
         stage.name = name;
+        stage.icon = icon;
         stage.requirementType = requirementType;
         stage.requiredBodies = new List<string>(requiredBodies.Select(x => x.Clone() as  string));
 

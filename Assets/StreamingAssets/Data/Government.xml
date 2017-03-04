@@ -52,16 +52,40 @@
 			<Member name="user"></Member> -->
 			<Power id="add_law" name="Add law" type="add_law" level=">0">
 				<Stage id="propose" name="Propose" timeout="10">
+					<Icon name="propose_law"/>
 					<Require type="any">
 						<Body ref="user"/>
 						<Body ref="federalCouncil"/>
 					</Require>
 				</Stage>
-				<Stage id="enact"/>
-				<Stage id="veto"/>
-				<Stage id="enforce"/>
-				<Stage id="modify"/>
-				<Stage id="repeal">
+				<Stage id="enact_law">
+					<Icon name="accept_law"/>
+					<Require type="any">
+						<Body ref="user"/>
+						<Body ref="federalCouncil"/>
+					</Require>
+				</Stage>
+				<Stage id="veto_law">
+					<Icon name="veto_law"/>
+					<Require type="all">
+						<Body ref="user"/>
+						<Body ref="federalCouncil"/>
+					</Require>
+				</Stage>
+				<Stage id="enforce_law">
+					<Icon name="enforce_law"/>
+					<Require type="any">
+						<Body ref="user"/>
+					</Require>
+				</Stage>
+				<Stage id="modify_law">
+					<Icon name="edit_law"/>
+					<Require type="any">
+						<Body ref="user"/>
+					</Require>
+				</Stage>
+				<Stage id="repeal_law">
+					<Icon name="repeal_law"/>
 					<Require type="any">
 						<Body ref="user"/>
 					</Require>
