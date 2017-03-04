@@ -10,7 +10,7 @@ public class GovernmentManager
     static public List<Power> powerPrototypes;
     static public List<Government> governmentPrototypes;
 
-    public Government currentGovernment;
+    //public Government currentGovernment;
 
     public GovernmentManager() {
 
@@ -36,7 +36,7 @@ public class GovernmentManager
                             Government gov = new Government();
                             gov.ReadXml(reader.ReadSubtree());
                             governmentPrototypes.Add(gov);
-                            currentGovernment = gov;
+                            //currentGovernment = gov;
                         }
                         else if (reader.Name.Equals("Body"))
                         {

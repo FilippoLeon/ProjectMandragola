@@ -10,10 +10,11 @@
 		<Body id="user" name="user" type="user">
 			<!-- Powers to manage members of body -->
 			<!-- Creates New power to select and manage a candidate -->
+			<!-- TODOOOOO replace with POWER?-->
 			<Action type="appoint"> <!-- Same as new <Power> of type "appoint" for this Body. -->
 					<!-- Requiriment to enact this power -->
 				<Require condition="all">
-					<Body name="god"/>
+					<Body ref="god"/>
 					<Legislative/>
 				</Require>
 			</Action>
@@ -34,9 +35,10 @@
 		<Body id="president" type="individual">
 		
 		</Body>
-		<Body id="federalCounsil" type="chamber">
+		<Body id="federalCouncil" type="chamber">
 			<Parameter type="int" name="size">5</Parameter>
 			<Parameter type="lua" name="majority">chamberMajority</Parameter>
+			<Approval/>
 		</Body>
 		
 		<Action>
@@ -45,21 +47,28 @@
 		
 		<!-- Powers and Bodies here are flagged as legislative -->
 		<Legislative>
-			<Body type=""/>
-			<Member name="user"></Member>
-			<Power type="add_law" level=">0">
-				<Action type="propose"/>
-				<Action type="enact"/>
-				<Action type="veto"/>
-				<Action type="enforce"/>
-				<Action type="modify"/>
-				<Action type="repeal">
-					<Requires type="or">
-						
-					</Requires>
-				</Action>
+		<!-- TOOD: how to manage branches -->
+			<!--<Body type=""/>
+			<Member name="user"></Member> -->
+			<Power id="add_law" name="Add law" type="add_law" level=">0">
+				<Stage id="propose" name="Propose" timeout="10">
+					<Require type="any">
+						<Body ref="user"/>
+						<Body ref="federalCouncil"/>
+					</Require>
+				</Stage>
+				<Stage id="enact"/>
+				<Stage id="veto"/>
+				<Stage id="enforce"/>
+				<Stage id="modify"/>
+				<Stage id="repeal">
+					<Require type="any">
+						<Body ref="user"/>
+					</Require>
+				</Stage>
 			</Power>
-			<Power type="appoint" level=">0">
+			<!-- See above -->
+			<Power id="appoint" name="Appoint" type="appoint" level=">0">
 				<Requires type="or">
 						
 				</Requires>
@@ -72,7 +81,5 @@
 			
 		
 		</Judiciary>
-	</Government>
-	<Government>
 	</Government>
 </Prototypes>

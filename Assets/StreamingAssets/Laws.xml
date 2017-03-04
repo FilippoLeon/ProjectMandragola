@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prototypes>
+  <Law>
+	<Parameter type="int" default="10" name="cost"/>
+	<Action type="onEnact">luaAction</Action>
+	<Action type="onRepeal">luaAction</Action>
+	<Action type="onTic">luaAction</Action>
+  </Law>
+</Prototypes>

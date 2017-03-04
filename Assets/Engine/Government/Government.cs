@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using System.Linq;
 using UnityEngine;
 
 public class Government : IXmlSerializable, ICloneable
@@ -13,20 +14,11 @@ public class Government : IXmlSerializable, ICloneable
     public List<Power> powers = new List<Power>();
     public Body user;
 
-    string id, type, name;
+    public Action onAddBody;
+    public Action onAddPower;
+
+    public string id, type, name;
     //private Government government;
-
-    public Government(Government government)
-    {
-
-        bodies = new List<Body>(government.bodies);
-        powers = new List<Power>(government.powers);
-        user = government.user;
-
-        id = government.id;
-        type = government.type;
-        name = government.name;
-    }
 
     XmlSchema IXmlSerializable.GetSchema()
     {
@@ -90,6 +82,8 @@ public class Government : IXmlSerializable, ICloneable
                     break;
             }
         }
+        if (onAddBody != null) onAddBody();
+        if (onAddPower != null) onAddPower();
     }
 
     public void WriteXml(XmlWriter writer)
@@ -101,7 +95,15 @@ public class Government : IXmlSerializable, ICloneable
 
     public object Clone()
     {
-        Government gov = new Government(this);
+        Government gov = new Government();
+
+        gov.bodies = new List<Body>(bodies.Select(x => x.Clone() as Body));
+        gov.powers = new List<Power>(powers.Select(x => x.Clone() as Power));
+        gov.user = user;
+
+        gov.id = id;
+        gov.type = type;
+        gov.name = name;
 
         return gov;
 }

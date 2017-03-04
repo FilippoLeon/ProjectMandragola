@@ -4,14 +4,15 @@ using System;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using System.Linq;
 using UnityEngine;
 
-public class Power : IXmlSerializable
+public class Power : IXmlSerializable, ICloneable
 {
     public Government.Branch branch = Government.Branch.None;
     public string id;
     public string name;
-    public List<Stage> stage = new List<Stage>();
+    public List<Stage> stages = new List<Stage>();
 
     XmlSchema IXmlSerializable.GetSchema()
     {
@@ -31,17 +32,39 @@ public class Power : IXmlSerializable
             switch (nodeType)
             {
                 case XmlNodeType.Element:
+                    if (reader.Name.Equals("Stage")) {
+                        Stage stage = new Stage(this);
+                        stage.ReadXml(reader.ReadSubtree());
+                        stages.Add(stage);
+                    }
                     break;
                 case XmlNodeType.EndElement:
                 default:
                     break;
             }
         }
-        Debug.Log("New power with id = " + id + " and stages " + stage.Count);
+        Debug.Log("New power with id = " + id + " and stages " + stages.Count);
     }
 
     public void WriteXml(XmlWriter writer)
     {
         throw new NotImplementedException();
     }
+    public object Clone()
+    {
+        Power pow = new Power();
+        pow.branch = branch;
+        pow.id = id;
+        pow.name = name;
+        pow.stages = new List<Stage>(
+            stages.Select((Stage x) => {
+                Stage y = x.Clone() as Stage;
+                y.parent = this;
+                return y;
+            }
+            )
+        );
+
+        return pow;
+}
 }
