@@ -7,7 +7,7 @@ public class WindowManager : MonoBehaviour
     public GameObject windowPrototype;
     static Dictionary<string, GameObject> windows = new Dictionary<string, GameObject>();
     static WindowManager Instance;
-
+    
     // Use this for initialization
     void Start()
     {
@@ -23,17 +23,35 @@ public class WindowManager : MonoBehaviour
 
     public void dynamicOpenWindow(string name)
     {
-        openWindow(name);
+        openWindowFromChildPrototype(name);
     }
 
-    public static void openWindow(string name)
+    public static GameObject openEmptyWindow(string name)
     {
         if (isOpen(name))
         {
             windows[name].SetActive(true);
             //windows[name].GetComponentInChildren<DragMask>().gameObject.SetActive(true);
             Debug.Log("Window " + name + " already open.");
-            return;
+            return windows[name];
+        }
+        GameObject window = Instantiate(Instance.windowPrototype);
+        window.transform.SetParent(GameObject.Find("Canvas").transform);
+        window.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -40);
+        window.SetActive(true);
+        window.GetComponent<WindowWidget>().setTitle(name);
+        windows[name] = window;
+        return window;
+    }
+
+    public static GameObject openWindowFromChildPrototype(string name)
+    {
+        if (isOpen(name))
+        {
+            windows[name].SetActive(true);
+            //windows[name].GetComponentInChildren<DragMask>().gameObject.SetActive(true);
+            Debug.Log("Window " + name + " already open.");
+            return windows[name];
         }
         GameObject window = Instantiate(Instance.windowPrototype);
         window.transform.SetParent(GameObject.Find("Canvas").transform);
@@ -43,6 +61,8 @@ public class WindowManager : MonoBehaviour
         window.SetActive(true);
         content.SetActive(true);
         windows[name] = window;
+        window.GetComponent<WindowWidget>().setTitle(name);
+        return window;
     }
 
     public static bool isOpen(string name)

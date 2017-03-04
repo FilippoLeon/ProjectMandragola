@@ -101,16 +101,18 @@
     <Compile Include="Assets\UI\PanelUtilities\TogglePanelButton.cs" />
     <Compile Include="Assets\UI\PanelUtilities\Tooltip.cs" />
     <Compile Include="Assets\UI\PanelUtilities\TooltipDisplayer.cs" />
+    <Compile Include="Assets\UI\Widgets\Dynamic\DynamicWidgetManager.cs" />
     <Compile Include="Assets\UI\Widgets\Dynamic\DynamicWindow.cs" />
     <Compile Include="Assets\UI\Widgets\Dynamic\DynamicXmlWindow.cs" />
     <Compile Include="Assets\UI\Widgets\Panel\DemographyWidget.cs" />
     <Compile Include="Assets\UI\Widgets\Panel\EconomyWidget.cs" />
     <Compile Include="Assets\UI\Widgets\Panel\TimeControlWidget.cs" />
+    <Compile Include="Assets\UI\Widgets\Window\AddLawWidget.cs" />
     <Compile Include="Assets\UI\Widgets\Window\ChamberViewWidget.cs" />
     <Compile Include="Assets\UI\Widgets\Window\GovBodyWidget.cs" />
     <Compile Include="Assets\UI\Widgets\Window\RegionWidget.cs" />
-    <Compile Include="Assets\UI\Widgets\WindowWidget.cs" />
     <Compile Include="Assets\UI\WindowUtilities\WindowManager.cs" />
+    <Compile Include="Assets\UI\WindowUtilities\WindowWidget.cs" />
     <Compile Include="Assets\Utilities\SpriteLoader.cs" />
     <Compile Include="Assets\Utilities\StringUtilities.cs" />
   </ItemGroup>

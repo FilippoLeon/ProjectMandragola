@@ -92,6 +92,17 @@ public class GovBodyWidget : MonoBehaviour {
                             tooltip += "\t" + body + "\n";
                         }
                         go.GetComponent<Tooltip>().text = tooltip;
+
+                        go.GetComponent<Button>().onClick.AddListener(
+                            () =>
+                            {
+                                GameObject window = WindowManager.openEmptyWindow("add_law");
+                                window.GetComponent<WindowWidget>().content.AddComponent<AddLawWidget>();
+                                //window.GetComponent<WindowWidget>().setContent(content);
+                                //GameObject go = new GameObject();
+                                //go.AddComponent<DynamicWindow>();
+                            }
+                       );
                     }
                 }
             }

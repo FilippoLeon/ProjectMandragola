@@ -107,7 +107,7 @@ public class WorldController : MonoBehaviour {
                 selected = objectHit.GetComponentInParent<RegionController>();
                 if (!WindowManager.isOpen("RegionWidget"))
                 {
-                    WindowManager.openWindow("RegionWidget");
+                    WindowManager.openWindowFromChildPrototype("RegionWidget");
                 }
                 WindowManager.activate("RegionWidget");
                 WindowManager.get("RegionWidget").GetComponentInChildren<RegionWidget>().regionController = selected;

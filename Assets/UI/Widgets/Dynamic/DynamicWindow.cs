@@ -7,12 +7,6 @@ using UnityEngine.UI;
 
 public class DynamicWindow : MonoBehaviour
 {
-    public GameObject labelPrototype;
-    public GameObject fieldPrototype;
-    public GameObject sliderPrototype;
-    public GameObject dropdownPrototype;
-    public GameObject buttonPrototype;
-
     public enum UIElement
     {
         Label, Button, Dropdown, Slider, Field, Radio, Checkbox
@@ -32,19 +26,19 @@ public class DynamicWindow : MonoBehaviour
         switch(element)
         {
             case UIElement.Label:
-                return labelPrototype;
+                return DynamicWidgetManager.Instance.labelPrototype;
             case UIElement.Button:
-                return buttonPrototype;
+                return DynamicWidgetManager.Instance.buttonPrototype;
             case UIElement.Dropdown:
-                return dropdownPrototype;
+                return DynamicWidgetManager.Instance.dropdownPrototype;
             case UIElement.Slider:
-                return sliderPrototype;
+                return DynamicWidgetManager.Instance.sliderPrototype;
             case UIElement.Field:
-                return fieldPrototype;
+                return DynamicWidgetManager.Instance.fieldPrototype;
             //case UIElement.Radio:
-            //    return radioPrototype;
+            //    return DynamicWidgetManager.Instance.radioPrototype;
             //case UIElement.Checkbox:
-            //    return checkboxPrototype;
+            //    return DynamicWidgetManager.Instance.checkboxPrototype;
             default:
                 throw new System.NotImplementedException();
         }
