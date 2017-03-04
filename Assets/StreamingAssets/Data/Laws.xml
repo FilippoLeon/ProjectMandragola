@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Prototypes>
-  <Law>
+  <Law id="law1" name="Awesome law">
 	<Parameter type="int" default="10" name="cost"/>
 	<Action type="onEnact">luaAction</Action>
 	<Action type="onRepeal">luaAction</Action>

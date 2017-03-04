@@ -84,6 +84,7 @@
     <Compile Include="Assets\Engine\Government\Body.cs" />
     <Compile Include="Assets\Engine\Government\Government.cs" />
     <Compile Include="Assets\Engine\Government\GovnermentManager.cs" />
+    <Compile Include="Assets\Engine\Government\Law.cs" />
     <Compile Include="Assets\Engine\Government\Power.cs" />
     <Compile Include="Assets\Engine\Government\Stage.cs" />
     <Compile Include="Assets\Engine\Region.cs" />
@@ -107,9 +108,10 @@
     <Compile Include="Assets\Utilities\StringUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Plugins\MoonSharp.Interpreter.xml" />
     <None Include="Assets\Shaders\OutlineShader.shader" />
-    <None Include="Assets\StreamingAssets\Government.xml" />
-    <None Include="Assets\StreamingAssets\Laws.xml" />
+    <None Include="Assets\StreamingAssets\Data\Government.xml" />
+    <None Include="Assets\StreamingAssets\Data\Laws.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
