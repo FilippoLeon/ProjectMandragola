@@ -11,6 +11,7 @@ public class DynamicWidgetManager : MonoBehaviour
     public GameObject buttonPrototype;
     public GameObject checkboxPrototype;
     public GameObject radioPrototype;
+    public GameObject scrollViewPrototype;
 
     static public DynamicWidgetManager Instance;
 

@@ -165,15 +165,8 @@ public class DynamicXmlWindow : DynamicWindow
             sizeX = XmlConvert.ToInt32(size[0]);
             sizeY = XmlConvert.ToInt32(size[1]);
         }
-
-        GridLayoutGroup glg;
-        if (layout == null) glg = gameObject.AddComponent<GridLayoutGroup>();
-        else
-        {
-            GameObject go = new GameObject();
-            go.transform.SetParent(layout.transform);
-            glg = go.AddComponent<GridLayoutGroup>();
-        }
+        
+        GridLayoutGroup glg = addLayout<GridLayoutGroup>(layout);
 
         glg.cellSize = new Vector2(sizeY, sizeX);
         glg.constraint = GridLayoutGroup.Constraint.Flexible;
