@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 public class World {
     public class Coord2D
@@ -167,13 +168,28 @@ public class World {
 
     public void tic()
     {
+
+        int i = 0;
+        List<Thread> TTT = new List<Thread>();
         foreach (Country country in countries)
         {
-            country.tic();
+            int i_ = i;
+            Thread t = new Thread(new ThreadStart(() => country.tic(i_)));
+            TTT.Add( t );
+
+            // Start the thread
+            t.Start();
+            //country.tic();
+            i++;
         }
-        foreach (Region region in regions)
+        foreach (Thread thread in TTT)
         {
-            region.tic();
+            thread.Join();
         }
+
+        //foreach (Region region in regions)
+        //{
+        //    region.tic();
+        //}
     }
 }

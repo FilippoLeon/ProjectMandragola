@@ -44,11 +44,16 @@ public class Country {
         region.country = this;
     }
 
-    public void tic()
+    public void tic(int i)
     {
+        Debug.Log("Tic from thread" + i);
         foreach (Law activeLaw in laws.activeLaws.Values)
         {
             activeLaw.OnEvent("OnTic", null);
+        }
+        foreach (Region region in regions)
+        {
+            region.tic();
         }
         demography.tic();
         economy.tic();
