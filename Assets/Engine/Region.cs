@@ -79,7 +79,12 @@ public class Region {
 
     public void tic()
     {
+        if (country == null) return;
         int taxes = (int) (population * rate);
-        world.thisCountry.economy.funds += taxes;
+        country.economy.funds += taxes;
+        foreach (Law activeLaw in country.laws.activeLaws.Values)
+        {
+            activeLaw.OnEvent("OnRegionTic");
+        }
     }
 }

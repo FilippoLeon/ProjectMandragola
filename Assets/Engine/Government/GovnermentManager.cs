@@ -6,7 +6,7 @@ using System.IO;
 using System;
 
 // Read and contains all prototypes and all bodies
-public class GovernmentManager : ITickable
+public class GovernmentManager
 {
     static public List<Body> bodyPrototypes;
     static public List<Power> powerPrototypes;
@@ -70,8 +70,5 @@ public class GovernmentManager : ITickable
             }
 
         }
-
-    public void tic()
-    {
-    }
+    
 }

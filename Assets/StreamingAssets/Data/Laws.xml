@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Prototypes>
-  <Law id="law1" name="Awesome law">
+  <Law id="basic_income_tax" name="Basic income tax">
 	<Icon name="law1_icon"/>
-	<Description>This is an awesome law.</Description>
+	<!-- Tooltip and symbols -->
+	<Description>
+	The base income tax is based on the income (duh!) of
+	the resident population of a region.
+	</Description>
 	<Parameter type="int" default="10">_cost</Parameter>
-	<Parameter type="float" default="2.0" range="1.0,3.0">_param2</Parameter>
-	<Action event="OnPropose">luaAction</Action>
+	<Parameter type="float" default="10.0" range="0.0,50.0">_rate</Parameter>
+	<Action event="OnPropose">basicIncomeTaxOnPropose</Action>
 	<Action event="OnEnact">luaAction</Action>
 	<Action event="OnRepeal">luaAction</Action>
-	<Action event="OnTic">luaAction</Action>
+	<Action event="OnRegionTic">basicIncomeTaxRegionTic</Action>
+	<Action event="OnTic">basicIncomeTaxTic</Action>
 	<Action event="ComputeCost">law1ComputeCost</Action>
 	<Gui minSize="400,29" maxSize="-1,-1">
 		<Grid size="200,29" cols="2">
@@ -16,7 +21,7 @@
 			<Label text="dynamic">luaLabelFunction</Label>
 			<!-- Auto bind to variable -->
 			<Slider>_cost</Slider>
-			<Field>_param2</Field>
+			<Field>_rate</Field>
 			<Dropdown/>
 			<Button></Button>
 			<Toggle/>

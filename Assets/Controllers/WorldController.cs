@@ -54,8 +54,13 @@ public class WorldController : MonoBehaviour {
     public int time = 0, elapsed = 0, maxElapsed = 100;
     public Action onTic;
 
+    static public WorldController Instance;
+
     // Use this for initialization
     void Start() {
+        Debug.Assert(Instance == null);
+        Instance = this;
+
         Region.onCreatedCallback += (Region region) => {
             if(regionControllerPrototype == null)
             {

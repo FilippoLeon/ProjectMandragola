@@ -9,6 +9,8 @@ public class Country {
     public Demography demography = new Demography();
     public Economy economy = new Economy();
     public Government government;
+    public Laws laws;
+    //public 
 
     public Color32 color;
 
@@ -42,6 +44,10 @@ public class Country {
 
     public void tic()
     {
+        foreach (Law activeLaw in laws.activeLaws.Values)
+        {
+            activeLaw.OnEvent("OnTic");
+        }
         demography.tic();
         economy.tic();
     }

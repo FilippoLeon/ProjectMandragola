@@ -13,7 +13,7 @@ public class AddLawWidget : DynamicWidget {
 
         LayoutGroup l2 = addScrollView();
         setMinSize(gameObject.GetComponentInChildren<ScrollRect>().gameObject, 80, 200);
-        foreach(Law law in LawManager.lawPrototypes.Values)
+        foreach(Law law in WorldController.Instance.world.thisCountry.laws.availableLaws.Values)
         {
             LayoutGroup l3 = addLayout<HorizontalLayoutGroup>(l2);
             GameObject go = add(UIElement.Label, l3);
@@ -25,18 +25,18 @@ public class AddLawWidget : DynamicWidget {
             go3.GetComponentInChildren<Text>().text = "Propose";
             go3.GetComponent<Button>().onClick.AddListener(
                 () => {
-                LawManager.Instance.propose(law.id);
-                Destroy(l3.gameObject);
+                    WorldController.Instance.world.thisCountry.laws.propose(law.id);
+                    Destroy(l3.gameObject);
                 }
             );
         }
-        add(UIElement.Label, l2);
-        add(UIElement.Label, l2);
-        add(UIElement.Label, l2);
-        add(UIElement.Label, l2);
-        add(UIElement.Label, l2);
-        add(UIElement.Label, l2);
-        add(UIElement.Label, l2);
+        //add(UIElement.Label, l2);
+        //add(UIElement.Label, l2);
+        //add(UIElement.Label, l2);
+        //add(UIElement.Label, l2);
+        //add(UIElement.Label, l2);
+        //add(UIElement.Label, l2);
+        //add(UIElement.Label, l2);
     }
 	
 	// Update is called once per frame

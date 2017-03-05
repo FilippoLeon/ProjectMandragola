@@ -94,6 +94,7 @@
     <Compile Include="Assets\Engine\Interfaces\ITickable.cs" />
     <Compile Include="Assets\Engine\Law\Law.cs" />
     <Compile Include="Assets\Engine\Law\LawManager.cs" />
+    <Compile Include="Assets\Engine\Law\Laws.cs" />
     <Compile Include="Assets\Engine\Region.cs" />
     <Compile Include="Assets\Engine\State.cs" />
     <Compile Include="Assets\Engine\World.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Assets\UI\Widgets\Window\RegionWidget.cs" />
     <Compile Include="Assets\UI\WindowUtilities\WindowManager.cs" />
     <Compile Include="Assets\UI\WindowUtilities\WindowWidget.cs" />
+    <Compile Include="Assets\Utilities\CloneUtilities.cs" />
     <Compile Include="Assets\Utilities\SpriteLoader.cs" />
     <Compile Include="Assets\Utilities\StringUtilities.cs" />
     <Compile Include="Assets\Utilities\Structures.cs" />

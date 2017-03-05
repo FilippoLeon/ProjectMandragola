@@ -6,14 +6,14 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using UnityEngine;
 
-public class Law: IXmlSerializable, IParametrizable {
+public class Law: IXmlSerializable, IParametrizable, ICloneable {
     public string id, name;
     public string description;
     public Dictionary<string, IGenericParameter> parameters = new Dictionary<string, IGenericParameter>();
     public Dictionary<string, IGenericAction> actions = new Dictionary<string, IGenericAction>();
 
-    public interface IGenericParameter { }
-    public interface IGenericAction { }
+    public interface IGenericParameter : ICloneable { }
+    public interface IGenericAction : ICloneable { }
 
     //public XmlReader guiSubtree;
 
@@ -37,6 +37,12 @@ public class Law: IXmlSerializable, IParametrizable {
         public string defaultValue;
         public string value;
         public string range;
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+            //throw new NotImplementedException();
+        }
     }
     public class GenericAction : IGenericAction
     {
@@ -49,6 +55,11 @@ public class Law: IXmlSerializable, IParametrizable {
             this.eventName = eventName;
             this.value = actionName;
             this.eventType = eventType;
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 
@@ -152,5 +163,16 @@ public class Law: IXmlSerializable, IParametrizable {
         {
             Debug.Log("Law does not contain action " + eventname);
         }
+    }
+
+    public object Clone()
+    {
+        Law clone = new Law();
+        clone.id = id.Clone() as string;
+        clone.name = name.Clone() as string;
+        clone.description = description.Clone() as string;
+        clone.parameters = CloneUtilities.CloneDictionary(parameters);
+        clone.actions = CloneUtilities.CloneDictionary(actions);
+        return clone;
     }
 }

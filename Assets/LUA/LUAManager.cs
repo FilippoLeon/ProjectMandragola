@@ -68,12 +68,12 @@ public class LUAManager : MonoBehaviour {
         }
         catch (ScriptRuntimeException e)
         {
-            Debug.LogError("Script exception " + e.DecoratedMessage);
+            Debug.LogError("Script exception: " + e.DecoratedMessage);
             return null;
         }
         catch (ArgumentException e)
         {
-            Debug.LogError("Script exception " + e.Message);
+            Debug.LogError("Script exception while running '" + function + "': " + e.Message);
             return null;
         }
     }

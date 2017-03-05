@@ -146,6 +146,7 @@ public class World {
         {
             int idx = rnd.Next(govsize);
             ctry.government = GovernmentManager.governmentPrototypes[idx].Clone() as Government;
+            
         }
     }
 
@@ -174,7 +175,5 @@ public class World {
         {
             region.tic();
         }
-        governmentManager.tic();
-        lawManager.tic();
     }
 }
