@@ -72,7 +72,7 @@ public class SpriteLoader : MonoBehaviour {
 
     void loadSpriteSheet(FileInfo path)
     {
-        string[] split = path.ToString().Split('.');
+        string[] split = path.FullName.Split('.');
         string pathXml = string.Join(".", split, 0, split.Length - 1) + ".xml";
         string fileName = path.Name.Split('.')[0];
         //File.Name
@@ -80,7 +80,7 @@ public class SpriteLoader : MonoBehaviour {
         Debug.Log(string.Format("Loading \"{0}\" ({1})...", path, fileName));
 
 
-        byte[] imageData = File.ReadAllBytes(path.ToString());
+        byte[] imageData = File.ReadAllBytes(path.FullName);
         
         Texture2D tex = new Texture2D(2, 2, TextureFormat.ARGB32, false);
         //textures_____.Add(tex);
@@ -95,7 +95,7 @@ public class SpriteLoader : MonoBehaviour {
             Debug.LogError("Cannot load texture!");
         }
         //Debug.Assert(Resources.Load(path.ToString()) != null, "Resource can't be null, invalid file name?");
-        Debug.Assert(tex != null, "Texture can't be null, invalit sheet map?");
+        Debug.Assert(tex != null, "Texture can't be null, invalid sheet map?");
 
         //Debug.Log(string.Format("Opening sprite .xml file \"{0}\" ({1})...", pathXml, fileName));
         if ( File.Exists(pathXml) ) {
