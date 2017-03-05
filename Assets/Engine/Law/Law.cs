@@ -40,13 +40,15 @@ public class Law: IXmlSerializable, IParametrizable {
     }
     public class GenericAction : IGenericAction
     {
-        public string type;
+        public string eventName;
         public string value;
+        public string eventType;
 
-        public GenericAction(string paramType, string actionName)
+        public GenericAction(string eventName, string actionName, string eventType = "lua")
         {
-            this.type = paramType;
+            this.eventName = eventName;
             this.value = actionName;
+            this.eventType = eventType;
         }
     }
 
@@ -84,10 +86,11 @@ public class Law: IXmlSerializable, IParametrizable {
                     }
                     else if (reader.Name.Equals("Action"))
                     {
-                        string actionType = reader.GetAttribute("type");
-                        if (actionType == null) actionType = "lua";
+                        string eventType = reader.GetAttribute("type");
+                        if (eventType == null) eventType = "lua";
+                        string eventName = reader.GetAttribute("event");
                         string actionName = reader.ReadElementContentAsString();
-                        actions[actionType] = new GenericAction(actionType, actionName);
+                        actions[eventName] = new GenericAction(eventName, actionName, eventType);
                     } else if (reader.Name.Equals("Gui"))
                     {
                         XmlReader reader2 = reader.ReadSubtree();
@@ -130,21 +133,24 @@ public class Law: IXmlSerializable, IParametrizable {
         return (parameters[param] as GenericParameter).range != null;
     }
 
-    public void setParameter<T>(string name, T value)
+    public void setParameter<T>(string paramname, T value)
     {
-        Debug.Log(string.Format("Setting parameter {0} of {1} to {2}.", name, this.name, value));
-        (parameters[name] as GenericParameter).value = value.ToString();
+        Debug.Log(string.Format("Setting parameter {0} of {1} to {2}.", paramname, this.name, value));
+        (parameters[paramname] as GenericParameter).value = value.ToString();
     }
 
     public void OnEvent(string eventname)
     {
-        if(actions.ContainsKey(eventname) && (actions[name] as GenericAction) != null)
+        if(actions.ContainsKey(eventname) && (actions[eventname] as GenericAction) != null)
         {
-            GenericAction act = (actions[name] as GenericAction);
-            if (act.type.Equals("lua"))
+            GenericAction act = (actions[eventname] as GenericAction);
+            if (act.eventType.Equals("lua"))
             {
-                //LUAManager.run("law", act.value);
+                LUAManager.Instance.Call("law", act.value, new object[] { });
             }
+        } else
+        {
+            Debug.Log("Law does not contain action " + eventname);
         }
     }
 }

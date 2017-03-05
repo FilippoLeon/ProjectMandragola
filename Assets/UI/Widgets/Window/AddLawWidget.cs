@@ -21,7 +21,14 @@ public class AddLawWidget : DynamicWidget {
             GameObject go2 = add(UIElement.Label, l3);
             go2.GetComponent<Text>().text = law.description;
             GameObject go3 = add(UIElement.Button, l3);
+            setMinSize(go3, 100, -1);
             go3.GetComponentInChildren<Text>().text = "Propose";
+            go3.GetComponent<Button>().onClick.AddListener(
+                () => {
+                LawManager.Instance.propose(law.id);
+                Destroy(l3.gameObject);
+                }
+            );
         }
         add(UIElement.Label, l2);
         add(UIElement.Label, l2);

@@ -5,10 +5,11 @@
 	<Description>This is an awesome law.</Description>
 	<Parameter type="int" default="10">_cost</Parameter>
 	<Parameter type="float" default="2.0" range="1.0,3.0">_param2</Parameter>
-	<Action type="onEnact">luaAction</Action>
-	<Action type="onRepeal">luaAction</Action>
-	<Action type="onTic">luaAction</Action>
-	<Action type="computeCost">law1ComputeCost</Action>
+	<Action event="OnPropose">luaAction</Action>
+	<Action event="OnEnact">luaAction</Action>
+	<Action event="OnRepeal">luaAction</Action>
+	<Action event="OnTic">luaAction</Action>
+	<Action event="ComputeCost">law1ComputeCost</Action>
 	<Gui minSize="400,29" maxSize="-1,-1">
 		<Grid size="200,29" cols="2">
 			<Label>Label</Label>
@@ -27,6 +28,7 @@
 	<Icon name="law1_icon"/>
 	<Description>This is an awesome law.</Description>
 	<Parameter type="int" default="10">_cost</Parameter>
+	<Action event="OnPropose">luaAction</Action>
 	<Gui minSize="100,29" maxSize="-1,-1">
 		<Grid size="100,29" cols="1">
 			<Slider>_cost</Slider>

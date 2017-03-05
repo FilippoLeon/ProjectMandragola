@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoonSharp.Interpreter;
 using System.IO;
+using System;
 
 public class LUAManager : MonoBehaviour {
 
@@ -12,7 +13,11 @@ public class LUAManager : MonoBehaviour {
     private string directory = "Scripts";
     private string filename = "laws.lua";
 
+    public static LUAManager Instance;
+
     void Start() {
+        Instance = this;
+
         UserData.RegisterAssembly();
 
         script = new Script();
@@ -30,8 +35,9 @@ public class LUAManager : MonoBehaviour {
         Load(info);
 
         Debug.Log("Test call to LUA!");
-        DynValue ret = Call("test");
+        DynValue ret = Call("generic", "test");
         Debug.Assert(ret.CastToBool() == true);
+        
     }
 
     // Update is called once per frame
@@ -53,7 +59,7 @@ public class LUAManager : MonoBehaviour {
         }
     }
 
-    private DynValue Call(string function, params object[] args)
+    public DynValue Call(string category, string function, params object[] args)
     {
         object func = script.Globals[function];
         try
@@ -63,6 +69,11 @@ public class LUAManager : MonoBehaviour {
         catch (ScriptRuntimeException e)
         {
             Debug.LogError("Script exception " + e.DecoratedMessage);
+            return null;
+        }
+        catch (ArgumentException e)
+        {
+            Debug.LogError("Script exception " + e.Message);
             return null;
         }
     }

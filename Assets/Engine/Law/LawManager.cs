@@ -18,10 +18,13 @@ public class LawManager : IPostInitialized, ITickable
     public static Dictionary<string, Action<XmlReader, Law>> registeredDispatchers = 
         new Dictionary<string, Action<XmlReader, Law>>();
 
+    static public LawManager Instance;
     //public Government currentGovernment;
 
     public LawManager()
     {
+        if (Instance != null) Debug.LogError("Multiple instances of LawManager.");
+        Instance = this;
         WorldController.register(this);
         //LawManager.registeredDispatchers["Gui"] += LawGUIManager.Instance.prepareGui;
     }
@@ -94,61 +97,63 @@ public class LawManager : IPostInitialized, ITickable
         return;
     }
 
-    public void propose(string name)
+    public void propose(string id)
     {
-        if(!lawPrototypes.ContainsKey(name))
+        Debug.Log("Law " + id + " is being proposedd.");
+        if (!lawPrototypes.ContainsKey(id))
         {
-            Debug.LogError("Cannot find law " + name + " in prototypes.");
+            Debug.LogError("Cannot find law " + id + " in prototypes.");
         } else
         {
-            Law law = lawPrototypes[name];
-            proposedLaws[name] = law;
-            law.OnEvent("OnProposed");
-            lawPrototypes.Remove(name);
+            Law law = lawPrototypes[id];
+            proposedLaws[id] = law;
+            law.OnEvent("OnPropose");
+            lawPrototypes.Remove(id);
         }
     }
-    public void veto(string name)
+    public void veto(string id)
     {
-        if (!proposedLaws.ContainsKey(name))
+        Debug.Log("Law " + id + " is being vetoed.");
+        if (!proposedLaws.ContainsKey(id))
         {
-            Debug.LogError("Cannot find law " + name + " in proposed laws.");
+            Debug.LogError("Cannot find law " + id + " in proposed laws.");
         }
         else
         {
-            Law law = proposedLaws[name];
-            lawPrototypes[name] = law;
-            law.OnEvent("OnVetoed");
-            proposedLaws.Remove(name);
-        }
-    }
-
-    public void enact(string name)
-    {
-        if (!proposedLaws.ContainsKey(name))
-        {
-            Debug.LogError("Cannot find law " + name + " in proposed laws.");
-        }
-        else
-        {
-            Law law = proposedLaws[name];
-            activeLaws[name] = law;
-            law.OnEvent("OnEnacted");
-            proposedLaws.Remove(name);
+            Law law = proposedLaws[id];
+            lawPrototypes[id] = law;
+            law.OnEvent("OnVeto");
+            proposedLaws.Remove(id);
         }
     }
 
-    public void remove(string name)
+    public void enact(string id)
     {
-        if (!activeLaws.ContainsKey(name))
+        if (!proposedLaws.ContainsKey(id))
         {
-            Debug.LogError("Cannot find law " + name + " in active laws.");
+            Debug.LogError("Cannot find law " + id + " in proposed laws.");
         }
         else
         {
-            Law law = activeLaws[name];
-            lawPrototypes[name] = law;
-            law.OnEvent("OnRemoved");
-            activeLaws.Remove(name);
+            Law law = proposedLaws[id];
+            activeLaws[id] = law;
+            law.OnEvent("OnEnact");
+            proposedLaws.Remove(id);
+        }
+    }
+
+    public void remove(string id)
+    {
+        if (!activeLaws.ContainsKey(id))
+        {
+            Debug.LogError("Cannot find law " + id + " in active laws.");
+        }
+        else
+        {
+            Law law = activeLaws[id];
+            lawPrototypes[id] = law;
+            law.OnEvent("OnRemove");
+            activeLaws.Remove(id);
         }
     }
     //public void modify(string name)
