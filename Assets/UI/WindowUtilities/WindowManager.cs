@@ -42,6 +42,8 @@ public class WindowManager : MonoBehaviour
         window.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -40);
         window.SetActive(true);
         window.GetComponent<WindowWidget>().setTitle(name);
+        // HACK to rescale window?
+        window.transform.localScale *= window.GetComponentInParent<UnityEngine.UI.CanvasScaler>().scaleFactor;
         windows[name] = window;
         return window;
     }
@@ -61,6 +63,8 @@ public class WindowManager : MonoBehaviour
         window.GetComponent<WindowWidget>().content = 
             Instantiate(Instance.prefabWidgetsParent.transform.FindChild(name).gameObject);
         window.SetActive(true);
+        // HACK to rescale window?
+        window.transform.localScale *= window.GetComponentInParent<UnityEngine.UI.CanvasScaler>().scaleFactor;
         //content.SetActive(true);
         windows[name] = window;
         window.GetComponent<WindowWidget>().setTitle(name);

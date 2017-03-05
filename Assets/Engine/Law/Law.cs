@@ -1,11 +1,14 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using UnityEngine;
+using MoonSharp.Interpreter;
 
+[MoonSharpUserData]
 public class Law: IXmlSerializable, IParametrizable, ICloneable {
     public string id, name;
     public string description;
@@ -90,7 +93,7 @@ public class Law: IXmlSerializable, IParametrizable, ICloneable {
                     if (reader.Name.Equals("Parameter"))
                     {
                         string paramType = reader.GetAttribute("type");
-                        string dv = reader.GetAttribute("default?value");
+                        string dv = reader.GetAttribute("default");
                         string range = reader.GetAttribute("range");
                         string name = reader.ReadElementContentAsString();
                         parameters[name] = new GenericParameter(paramType, dv, range);
@@ -150,18 +153,30 @@ public class Law: IXmlSerializable, IParametrizable, ICloneable {
         (parameters[paramname] as GenericParameter).value = value.ToString();
     }
 
-    public void OnEvent(string eventname)
+    public int getParameterAsInt(string paramname) 
+    {
+        //(parameters[paramname] as GenericParameter).value = value.ToString();
+        if(!parameters.ContainsKey(paramname))
+        {
+            Debug.LogError("No parameter with this name!");
+        }
+        return Convert.ToInt32((parameters[paramname] as GenericParameter).value);
+    }
+
+    public void OnEvent(string eventname, object[] args)
     {
         if(actions.ContainsKey(eventname) && (actions[eventname] as GenericAction) != null)
         {
             GenericAction act = (actions[eventname] as GenericAction);
             if (act.eventType.Equals("lua"))
             {
-                LUAManager.Instance.Call("law", act.value, new object[] { });
+                // Dispatch Call with saeme args (law is usually included in args[0]
+                if (args == null) args = new object[] { };
+                LUAManager.Instance.Call("law", act.value, args);
             }
         } else
         {
-            Debug.Log("Law does not contain action " + eventname);
+            //Debug.Log("Law does not contain action " + eventname);
         }
     }
 

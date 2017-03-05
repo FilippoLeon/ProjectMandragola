@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using MoonSharp.Interpreter;
 
+[MoonSharpUserData]
 public class Region {
     public static Action<Region> onCreatedCallback;
     public Action onRegionCangedCallback;
@@ -81,10 +83,10 @@ public class Region {
     {
         if (country == null) return;
         int taxes = (int) (population * rate);
-        country.economy.funds += taxes;
+        //country.economy.funds += taxes;
         foreach (Law activeLaw in country.laws.activeLaws.Values)
         {
-            activeLaw.OnEvent("OnRegionTic");
+            activeLaw.OnEvent("OnRegionTic", new Object[] { activeLaw, this });
         }
     }
 }

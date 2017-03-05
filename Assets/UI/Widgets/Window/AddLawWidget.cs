@@ -26,6 +26,15 @@ public class AddLawWidget : DynamicWidget {
             go3.GetComponent<Button>().onClick.AddListener(
                 () => {
                     WorldController.Instance.world.thisCountry.laws.propose(law.id);
+                    WorldController.Instance.world.thisCountry.laws.enact(law.id);
+                    // REMOVE ME: Enable for every available country (to test performance)
+                    foreach(Country ctry in WorldController.Instance.world.countries)
+                    {
+                        if (WorldController.Instance.world.thisCountry == ctry) continue;
+
+                        ctry.laws.propose(law.id);
+                        ctry.laws.enact(law.id);
+                    }
                     Destroy(l3.gameObject);
                 }
             );

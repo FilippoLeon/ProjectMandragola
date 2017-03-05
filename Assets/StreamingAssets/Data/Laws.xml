@@ -10,10 +10,10 @@
 	<Parameter type="int" default="10">_cost</Parameter>
 	<Parameter type="float" default="10.0" range="0.0,50.0">_rate</Parameter>
 	<Action event="OnPropose">basicIncomeTaxOnPropose</Action>
-	<Action event="OnEnact">luaAction</Action>
+	<Action event="OnEnact">basicIncomeTaxOnEnact</Action>
 	<Action event="OnRepeal">luaAction</Action>
-	<Action event="OnRegionTic">basicIncomeTaxRegionTic</Action>
-	<Action event="OnTic">basicIncomeTaxTic</Action>
+	<Action event="OnRegionTic">basicIncomeTaxOnRegionTic</Action>
+	<Action event="OnTic">basicIncomeTaxOnTic</Action>
 	<Action event="ComputeCost">law1ComputeCost</Action>
 	<Gui minSize="400,29" maxSize="-1,-1">
 		<Grid size="200,29" cols="2">

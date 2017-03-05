@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoonSharp.Interpreter;
 
+[MoonSharpUserData]
 public class Country {
 
     public List<State> states;
@@ -46,7 +48,7 @@ public class Country {
     {
         foreach (Law activeLaw in laws.activeLaws.Values)
         {
-            activeLaw.OnEvent("OnTic");
+            activeLaw.OnEvent("OnTic", null);
         }
         demography.tic();
         economy.tic();

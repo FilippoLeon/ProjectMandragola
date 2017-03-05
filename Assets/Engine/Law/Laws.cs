@@ -17,7 +17,7 @@ public class Laws
     {
         foreach (Law activeLaw in activeLaws.Values)
         {
-            activeLaw.OnEvent("OnTic");
+            activeLaw.OnEvent("OnTic", null);
         }
     }
 
@@ -32,7 +32,7 @@ public class Laws
         {
             Law law = availableLaws[id];
             proposedLaws[id] = law;
-            law.OnEvent("OnPropose");
+            law.OnEvent("OnPropose", null);
             availableLaws.Remove(id);
         }
     }
@@ -47,7 +47,7 @@ public class Laws
         {
             Law law = proposedLaws[id];
             availableLaws[id] = law;
-            law.OnEvent("OnVeto");
+            law.OnEvent("OnVeto", null);
             proposedLaws.Remove(id);
         }
     }
@@ -62,7 +62,7 @@ public class Laws
         {
             Law law = proposedLaws[id];
             activeLaws[id] = law;
-            law.OnEvent("OnEnact");
+            law.OnEvent("OnEnact", null);
             proposedLaws.Remove(id);
         }
     }
@@ -77,7 +77,7 @@ public class Laws
         {
             Law law = activeLaws[id];
             availableLaws[id] = law;
-            law.OnEvent("OnRemove");
+            law.OnEvent("OnRemove", null);
             activeLaws.Remove(id);
         }
     }
