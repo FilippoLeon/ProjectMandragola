@@ -29,6 +29,7 @@ public class RegionController : MonoBehaviour {
             Debug.LogWarning("Overrding region!");
         }
         region = region_;
+        gameObject.name = region.name;
 
         region.onRegionCangedCallback += () =>
         {

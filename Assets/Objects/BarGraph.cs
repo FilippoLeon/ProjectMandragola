@@ -13,7 +13,7 @@ public class BarGraph : MonoBehaviour {
     public Vector3 oldScale, targetScale;
     public float animationTimer = 0f;
     public float animationDuration = 1f;
-
+    
     public void setHeight(int h_)
     {
         h = h_;

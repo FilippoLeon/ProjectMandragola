@@ -34,6 +34,11 @@ public class WindowWidget : MonoBehaviour {
 		//transform.get
 	}
 
+    public void moveToCanvas()
+    {
+        transform.SetParent(GameObject.Find("Canvas").transform);
+    }
+
     private void findTitle()
     {
         title = transform.Find("Title").GetComponent<Text>();

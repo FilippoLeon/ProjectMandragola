@@ -55,6 +55,7 @@ public class World {
     private Region[,] regions;
 
     GovernmentManager governmentManager;
+    LawManager lawManager;
 
     public World(Coord2D size_)
     {
@@ -70,6 +71,7 @@ public class World {
         }
 
         governmentManager = new GovernmentManager();
+        lawManager = new LawManager();
         //
 
         /// GENERATE

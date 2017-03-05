@@ -58,6 +58,7 @@ public class WorldController : MonoBehaviour {
                 Debug.LogError("No region controller component.");
                 return;
             }
+            //regionController.name = region.name;
             regionController.setRegion(region);
             regionControllerObject.SetActive(true);
 

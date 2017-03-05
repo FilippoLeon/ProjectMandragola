@@ -45,11 +45,9 @@ public class Region {
     {
         world = world_;
         coord = coord_;
-        if (onCreatedCallback != null) onCreatedCallback(this);
-
         name = coord_.x.ToString() + "-" + coord_.y.ToString();
-        
         population = world.rnd.Next(1,5);
+        if (onCreatedCallback != null) onCreatedCallback(this);
     }
 
     public Region[] getNeighbours(bool diagonal = true) {

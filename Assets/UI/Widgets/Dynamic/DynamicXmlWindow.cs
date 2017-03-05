@@ -7,24 +7,36 @@ using UnityEngine.UI;
 
 public class DynamicXmlWindow : DynamicWindow
 {
-    public interface IParametrizable
-    {
-        Vector2 parameterRange(string param);
-        bool parameterHasRange(string param);
-        void setParameter<T>(string name, T value);
+    private IParametrizable target_;
+    public IParametrizable target {
+        set
+        {
+            target_ = value;
+        }
+        get
+        {
+            return target_;
+        }
     }
-
-    public IParametrizable target;
     
     void Start()
     {
         buildWidgets(Path.Combine(Application.streamingAssetsPath, Path.Combine("Data", "Laws.xml")));
     }
-    
+
     public void buildWidgets(string path)
     {
         XmlReaderSettings settings = new XmlReaderSettings();
         XmlReader reader = XmlReader.Create(path, settings);
+
+        buildGui(reader);
+    }
+
+    public void buildGui(XmlReader reader) {
+        if(target == null)
+        {
+            Debug.LogWarning("No target for dynamic window!");
+        }
 
         reader.MoveToContent();
         while (reader.Read())

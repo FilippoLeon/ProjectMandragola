@@ -12,6 +12,7 @@ public class WindowManager : MonoBehaviour
     void Start()
     {
         Debug.Assert(Instance == null);
+        if (Instance != null) Debug.LogError("Multiple instances!");
         Instance = this;
     }
 

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Prototypes>
   <Law id="law1" name="Awesome law">
-	<Parameter type="int" default="10" name="_param2"/>
-	<Parameter type="float" default="2.0" range="1.0,3.0" name="_cost"/>
+	<Icon name="law1_icon"/>
+	<Description>This is an awesome law.</Description>
+	<Parameter type="int" default="10">_cost</Parameter>
+	<Parameter type="float" default="2.0" range="1.0,3.0">_param2</Parameter>
 	<Action type="onEnact">luaAction</Action>
 	<Action type="onRepeal">luaAction</Action>
 	<Action type="onTic">luaAction</Action>
