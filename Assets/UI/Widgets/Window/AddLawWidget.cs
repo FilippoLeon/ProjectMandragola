@@ -12,6 +12,7 @@ public class AddLawWidget : DynamicWindow {
         //GameObject  view = add(UIElement.ScrollView, l);
 
         LayoutGroup l2 = addScrollView();
+        setMinSize(gameObject.GetComponentInChildren<ScrollRect>().gameObject, 80, 200);
         add(UIElement.Label, l2);
         add(UIElement.Label, l2);
         add(UIElement.Label, l2);

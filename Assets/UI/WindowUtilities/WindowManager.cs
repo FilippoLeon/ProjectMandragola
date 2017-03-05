@@ -56,10 +56,9 @@ public class WindowManager : MonoBehaviour
         GameObject window = Instantiate(Instance.windowPrototype);
         window.transform.SetParent(GameObject.Find("Canvas").transform);
         window.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -40);
-        GameObject content = Instantiate(Instance.transform.FindChild(name).gameObject);
-        content.transform.SetParent(window.transform);
+        window.GetComponent<WindowWidget>().content = Instantiate(Instance.transform.FindChild(name).gameObject);
         window.SetActive(true);
-        content.SetActive(true);
+        //content.SetActive(true);
         windows[name] = window;
         window.GetComponent<WindowWidget>().setTitle(name);
         return window;

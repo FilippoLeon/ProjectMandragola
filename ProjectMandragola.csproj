@@ -90,6 +90,7 @@
     <Compile Include="Assets\Engine\Government\Law.cs" />
     <Compile Include="Assets\Engine\Government\Power.cs" />
     <Compile Include="Assets\Engine\Government\Stage.cs" />
+    <Compile Include="Assets\Engine\Law\LawManager.cs" />
     <Compile Include="Assets\Engine\Region.cs" />
     <Compile Include="Assets\Engine\State.cs" />
     <Compile Include="Assets\Engine\World.cs" />

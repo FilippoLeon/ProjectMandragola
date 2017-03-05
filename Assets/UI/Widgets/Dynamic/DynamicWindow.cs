@@ -49,6 +49,12 @@ public class DynamicWindow : MonoBehaviour
         }
     }
 
+    public void setMinSize(GameObject go, int minh, int miny)
+    {
+        if(minh >= 0) go.GetComponent<LayoutElement>().minWidth = minh;
+        if(miny >= 0) go.GetComponent<LayoutElement>().minHeight = miny;
+    }
+
     public T addLayout<T>(LayoutGroup layout = null) where T : LayoutGroup {
         T glg;
         if (layout == null) glg = gameObject.AddComponent<T>();
@@ -71,7 +77,9 @@ public class DynamicWindow : MonoBehaviour
 
         }
         GameObject view = add(UIElement.ScrollView, glg);
-        return view.transform.Find("Viewport").Find("Content").gameObject.AddComponent<VerticalLayoutGroup>();
+        VerticalLayoutGroup internalLayout = view.transform.Find("Viewport").Find("Content").gameObject.AddComponent<VerticalLayoutGroup>();
+        internalLayout.padding = new RectOffset(4, 4, 4, 4);
+        return internalLayout;
     }
 
     public GameObject add(UIElement element, LayoutGroup layout)
