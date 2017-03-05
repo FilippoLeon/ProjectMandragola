@@ -97,6 +97,7 @@
     <Compile Include="Assets\Engine\Region.cs" />
     <Compile Include="Assets\Engine\State.cs" />
     <Compile Include="Assets\Engine\World.cs" />
+    <Compile Include="Assets\LUA\LUAManager.cs" />
     <Compile Include="Assets\Objects\BarGraph.cs" />
     <Compile Include="Assets\UI\Managers\LawGUIManager.cs" />
     <Compile Include="Assets\UI\PanelUtilities\DragMask.cs" />
