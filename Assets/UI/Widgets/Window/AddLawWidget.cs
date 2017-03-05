@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AddLawWidget : DynamicWindow {
+public class AddLawWidget : DynamicWidget {
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +13,16 @@ public class AddLawWidget : DynamicWindow {
 
         LayoutGroup l2 = addScrollView();
         setMinSize(gameObject.GetComponentInChildren<ScrollRect>().gameObject, 80, 200);
+        foreach(Law law in LawManager.lawPrototypes.Values)
+        {
+            LayoutGroup l3 = addLayout<HorizontalLayoutGroup>(l2);
+            GameObject go = add(UIElement.Label, l3);
+            go.GetComponent<Text>().text = law.name;
+            GameObject go2 = add(UIElement.Label, l3);
+            go2.GetComponent<Text>().text = law.description;
+            GameObject go3 = add(UIElement.Button, l3);
+            go3.GetComponentInChildren<Text>().text = "Propose";
+        }
         add(UIElement.Label, l2);
         add(UIElement.Label, l2);
         add(UIElement.Label, l2);

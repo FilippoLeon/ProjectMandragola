@@ -9,8 +9,8 @@
 	<Action type="onRepeal">luaAction</Action>
 	<Action type="onTic">luaAction</Action>
 	<Action type="computeCost">law1ComputeCost</Action>
-	<Gui>
-		<Grid size="29,200" cols="2">
+	<Gui minSize="400,29" maxSize="-1,-1">
+		<Grid size="200,29" cols="2">
 			<Label>Label</Label>
 			<Label text="dynamic">luaLabelFunction</Label>
 			<!-- Auto bind to variable -->
@@ -20,6 +20,16 @@
 			<Button></Button>
 			<Toggle/>
 			<Radio group="_group1">Text</Radio>
+		</Grid>
+	</Gui>
+  </Law>
+  <Law id="law2" name="Awesome law 2">
+	<Icon name="law1_icon"/>
+	<Description>This is an awesome law.</Description>
+	<Parameter type="int" default="10">_cost</Parameter>
+	<Gui minSize="100,29" maxSize="-1,-1">
+		<Grid size="100,29" cols="1">
+			<Slider>_cost</Slider>
 		</Grid>
 	</Gui>
   </Law>

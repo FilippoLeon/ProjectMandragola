@@ -5,7 +5,7 @@ using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DynamicWindow : MonoBehaviour
+public class DynamicWidget : MonoBehaviour
 {
     public enum UIElement
     {
@@ -77,7 +77,8 @@ public class DynamicWindow : MonoBehaviour
 
         }
         GameObject view = add(UIElement.ScrollView, glg);
-        VerticalLayoutGroup internalLayout = view.transform.Find("Viewport").Find("Content").gameObject.AddComponent<VerticalLayoutGroup>();
+        VerticalLayoutGroup internalLayout = 
+            view.transform.Find("Viewport").Find("Content").gameObject.AddComponent<VerticalLayoutGroup>();
         internalLayout.padding = new RectOffset(4, 4, 4, 4);
         return internalLayout;
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class WindowManager : MonoBehaviour
 {
     public GameObject windowPrototype;
+    public GameObject prefabWidgetsParent;
     static Dictionary<string, GameObject> windows = new Dictionary<string, GameObject>();
     static WindowManager Instance;
     
@@ -57,7 +58,8 @@ public class WindowManager : MonoBehaviour
         GameObject window = Instantiate(Instance.windowPrototype);
         window.transform.SetParent(GameObject.Find("Canvas").transform);
         window.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -40);
-        window.GetComponent<WindowWidget>().content = Instantiate(Instance.transform.FindChild(name).gameObject);
+        window.GetComponent<WindowWidget>().content = 
+            Instantiate(Instance.prefabWidgetsParent.transform.FindChild(name).gameObject);
         window.SetActive(true);
         //content.SetActive(true);
         windows[name] = window;

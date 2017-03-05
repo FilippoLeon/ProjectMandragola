@@ -5,7 +5,7 @@ using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DynamicXmlWindow : DynamicWindow
+public class DynamicXmlWidget : DynamicWidget
 {
     private IParametrizable target_;
     public IParametrizable target {
@@ -18,10 +18,18 @@ public class DynamicXmlWindow : DynamicWindow
             return target_;
         }
     }
-    
+
+    private Size2 minimumSize_;
+    public Size2 minimumSize
+    {
+        get { return minimumSize_; }
+        set { minimumSize_ = value; }
+    }
+
     void Start()
     {
-        buildWidgets(Path.Combine(Application.streamingAssetsPath, Path.Combine("Data", "Laws.xml")));
+        // Dummy test
+        //buildWidgets(Path.Combine(Application.streamingAssetsPath, Path.Combine("Data", "Laws.xml")));
     }
 
     public void buildWidgets(string path)
@@ -38,7 +46,7 @@ public class DynamicXmlWindow : DynamicWindow
             Debug.LogWarning("No target for dynamic window!");
         }
 
-        reader.MoveToContent();
+        //reader.MoveToContent();
         while (reader.Read())
         {
             XmlNodeType nodeType = reader.NodeType;
@@ -48,6 +56,10 @@ public class DynamicXmlWindow : DynamicWindow
                     //Debug.Log(reader.Name);
                     if (reader.Name.Equals("Gui"))
                     {
+                        if(reader.GetAttribute("minSize") != null)
+                        {
+                            minimumSize = Size2.Convert(reader.GetAttribute("minSize"));
+                        }
                         XmlReader subtree = reader.ReadSubtree();
                         addRoot(null, subtree);
                     }
@@ -132,6 +144,10 @@ public class DynamicXmlWindow : DynamicWindow
         Debug.Assert(reader.Name.Equals("Slider"));
 
         string boundVariable = reader.ReadElementContentAsString();
+        if(target == null && !target.hasParameter(boundVariable))
+        {
+            Debug.LogWarning("No parameter with name " + boundVariable);
+        }
         Vector2 range = new Vector2(0, 1);
         if (target != null && target.parameterHasRange(boundVariable))
         {
@@ -146,7 +162,7 @@ public class DynamicXmlWindow : DynamicWindow
         go.GetComponent<Slider>().onValueChanged.AddListener(
             (float value) => {
                 if (target != null) target.setParameter(boundVariable, value);
-                Debug.Log("Slide!");
+                //Debug.Log("Slide!");
             }
         );
         //Slider txt = newElement(layout).AddComponent<Slider>();
@@ -161,7 +177,7 @@ public class DynamicXmlWindow : DynamicWindow
         GameObject go = add(UIElement.Button, layout);
         go.GetComponent<Button>().onClick.AddListener(
             () => {
-                Debug.Log("Click!");
+                //Debug.Log("Click!");
             }
         );
     }
@@ -174,10 +190,10 @@ public class DynamicXmlWindow : DynamicWindow
         if (reader.GetAttribute("size") != null)
         {
             string[] size = reader.GetAttribute("size").Split(',');
-            sizeX = XmlConvert.ToInt32(size[0]);
-            sizeY = XmlConvert.ToInt32(size[1]);
+            sizeY = XmlConvert.ToInt32(size[0]);
+            sizeX = XmlConvert.ToInt32(size[1]);
         }
-        
+
         GridLayoutGroup glg = addLayout<GridLayoutGroup>(layout);
 
         glg.cellSize = new Vector2(sizeY, sizeX);

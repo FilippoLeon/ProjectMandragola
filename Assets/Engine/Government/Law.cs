@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class Law: IXmlSerializable, IParametrizable {
     public string id, name;
+    public string description;
     public Dictionary<string, IGenericParameter> parameters = new Dictionary<string, IGenericParameter>();
     public Dictionary<string, IGenericAction> actions = new Dictionary<string, IGenericAction>();
 
@@ -22,6 +23,14 @@ public class Law: IXmlSerializable, IParametrizable {
         {
             type = type_;
             defaultValue = defaultValue_;
+            value = defaultValue_;
+        }
+        public GenericParameter(string type_, string defaultValue_, string range_)
+        {
+            type = type_;
+            defaultValue = defaultValue_;
+            range = range_;
+            value = defaultValue_;
         }
 
         public string type;
@@ -57,7 +66,7 @@ public class Law: IXmlSerializable, IParametrizable {
 
         id = reader.GetAttribute("id");
         name = reader.GetAttribute("name");
-
+        //Debug.Log("New law " + id + " " + name);
 
         while (reader.Read())
         {
@@ -71,7 +80,7 @@ public class Law: IXmlSerializable, IParametrizable {
                         string dv = reader.GetAttribute("default?value");
                         string range = reader.GetAttribute("range");
                         string name = reader.ReadElementContentAsString();
-                        parameters[name] = new GenericParameter(paramType, dv);
+                        parameters[name] = new GenericParameter(paramType, dv, range);
                     }
                     else if (reader.Name.Equals("Action"))
                     {
@@ -80,8 +89,14 @@ public class Law: IXmlSerializable, IParametrizable {
                         actions[paramType] = new GenericAction(paramType, actionName);
                     } else if (reader.Name.Equals("Gui"))
                     {
-                        LawManager.treeDispatcher("Gui", reader.ReadSubtree(), this);
+                        XmlReader reader2 = reader.ReadSubtree();
+                        LawManager.treeDispatcher("Gui", reader2, this);
+                        reader2.Close();
                         //guiSubtree = reader.ReadSubtree();
+                    }
+                    else if (reader.Name.Equals("Description"))
+                    {
+                        description = reader.ReadElementContentAsString();
                     }
                     break;
                 case XmlNodeType.EndElement:
@@ -104,6 +119,11 @@ public class Law: IXmlSerializable, IParametrizable {
         return vec;
     }
 
+    public bool hasParameter(string param)
+    {
+        return parameters.ContainsKey(name);
+    }
+
     public bool parameterHasRange(string param)
     {
         return (parameters[param] as GenericParameter).range != null;
@@ -111,6 +131,7 @@ public class Law: IXmlSerializable, IParametrizable {
 
     public void setParameter<T>(string name, T value)
     {
+        Debug.Log(string.Format("Setting parameter {0} of {1} to {2}.", name, this.name, value));
         (parameters[name] as GenericParameter).value = value.ToString();
     }
 }

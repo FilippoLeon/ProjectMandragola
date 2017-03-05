@@ -23,13 +23,13 @@ public class SpriteLoader : MonoBehaviour {
         public string name;
         public Rect rect;
         public Vector2 pivot;
-        private Vector2 vector2;
+        //private Vector2 vector2;
 
         public SpriteData() { }
-        public SpriteData(Rect rect, Vector2 vector2)
+        public SpriteData(Rect rect, Vector2 pivot)
         {
             this.rect = rect;
-            this.vector2 = vector2;
+            this.pivot = pivot;
         }
         
     }

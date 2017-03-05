@@ -8,7 +8,7 @@ public class LawGUIManager : MonoBehaviour {
     public GameObject dynamicWidgetPrototype;
     static Dictionary<string, GameObject> lawGUIs = new Dictionary<string, GameObject>();
 
-    static LawGUIManager Instance;
+    public static LawGUIManager Instance;
     
 	void Start () {
         if(Instance != null)
@@ -17,24 +17,36 @@ public class LawGUIManager : MonoBehaviour {
         }
         Instance = this;
         LawManager.registeredDispatchers["Gui"] = prepareGui;
-	}
+    }
 	
-    void prepareGui(XmlReader reader, Law law)
+    /// <summary>
+    /// Reads an XmlSubtree an a law and prepares a GUI (with windows) to 
+    /// represent the Law.
+    /// </summary>
+    /// <param name="reader"></param>
+    /// <param name="law"></param>
+    public void prepareGui(XmlReader reader, Law law)
     {
-        GameObject win = WindowManager.openEmptyWindow(law.id + "_window");
+        // TODO: Only one window and many widget?
+
+        GameObject gowin = WindowManager.openEmptyWindow(law.id + "_window");
         GameObject go = Instantiate(dynamicWidgetPrototype);
-        win.GetComponent<WindowWidget>().content = go;
-        if(go.GetComponent<DynamicXmlWindow>() == null)
+        WindowWidget window = gowin.GetComponent<WindowWidget>();
+        window.content = go;
+        if(go.GetComponent<DynamicXmlWidget>() == null)
         {
             Debug.LogError("Missing DynamicXMlWindow component.");
             return;
         }
-        DynamicXmlWindow proto = go.GetComponent<DynamicXmlWindow>();
+        DynamicXmlWidget law_widget = go.GetComponent<DynamicXmlWidget>();
 
         //proto.moveToCanvas();
         go.name = law.id + "_widget";
-        proto.target = law;
-        proto.buildGui(reader);
+        law_widget.target = law;
+        law_widget.buildGui(reader);
+
+        window.minimumSize = law_widget.minimumSize + WindowWidget.margin;
+
         lawGUIs[law.id] = go;
     }
 }

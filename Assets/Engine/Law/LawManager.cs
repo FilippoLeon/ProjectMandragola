@@ -6,7 +6,7 @@ using System.IO;
 using System;
 
 // Read and contains all prototypes and all bodies
-public class LawManager
+public class LawManager : IPostInitialized
 {
 
     static public Dictionary<string, Law> lawPrototypes;
@@ -19,6 +19,15 @@ public class LawManager
     //public Government currentGovernment;
 
     public LawManager()
+    {
+        WorldController.register(this);
+        //LawManager.registeredDispatchers["Gui"] += LawGUIManager.Instance.prepareGui;
+    }
+
+    /// <summary>
+    /// Called after all world objects have been started
+    /// </summary>
+    public void postInit()
     {
         if (lawPrototypes == null)
         {
@@ -45,8 +54,10 @@ public class LawManager
                     {
                         //Debug.Log(reader.Name);
                         Law law = new Law();
-                        law.ReadXml(reader.ReadSubtree());
+                        XmlReader subtree = reader.ReadSubtree();
+                        law.ReadXml(subtree);
                         lawPrototypes[law.id] = law;
+                        subtree.Close();
                         //currentGovernment = gov;
                     }
                     break;
@@ -65,8 +76,11 @@ public class LawManager
             Debug.LogWarning("Key " + name + " not registered in dispatcher.");
         } else if (LawManager.registeredDispatchers[name] != null) {
             LawManager.registeredDispatchers[name](subtree, law);
+        } else
+        {
+            Debug.LogWarning("Dispatcher already registered.");
         }
-        subtree.Close();
+        //subtree.Close();
         return;
     }
 }

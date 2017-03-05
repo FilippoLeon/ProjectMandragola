@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public interface IPostInitialized
+{
+    void postInit();
+}
+
 static class Coord2DExtension
 {
     public static Vector2 ToVector2(this World.Coord2D input)
@@ -21,6 +26,13 @@ public class WorldController : MonoBehaviour {
 
     public Material defaultMaterial;
     public Material outlineMaterial;
+
+    static public List<IPostInitialized> postinitialized = new List<IPostInitialized>();
+
+    public static void register(IPostInitialized item)
+    {
+        postinitialized.Add(item);
+    }
 
     public Action<int> onSpeedChanged;
     private int speed_ = 1;
