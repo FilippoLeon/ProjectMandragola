@@ -128,7 +128,8 @@ public class DynamicXmlWidget : DynamicWidget
     public void addField(LayoutGroup layout, XmlReader reader)
     {
         Debug.Assert(reader.Name.Equals("Field"));
-        GameObject go = add(UIElement.Field, layout);
+        //GameObject go = 
+            add(UIElement.Field, layout);
         //InputField txt = newElement(layout).AddComponent<InputField>();
         //txt.text = "Dummy";
     }
@@ -159,6 +160,8 @@ public class DynamicXmlWidget : DynamicWidget
         }
 
         GameObject go = add(UIElement.Slider, layout);
+        go.GetComponent<Slider>().minValue = range.x;
+        go.GetComponent<Slider>().maxValue = range.y;
         go.GetComponent<Slider>().onValueChanged.AddListener(
             (float value) => {
                 if (target != null) target.setParameter(boundVariable, value);

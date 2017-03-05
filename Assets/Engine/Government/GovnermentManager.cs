@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Xml;
 using System.IO;
+using System;
 
 // Read and contains all prototypes and all bodies
-public class GovernmentManager
+public class GovernmentManager : ITickable
 {
     static public List<Body> bodyPrototypes;
     static public List<Power> powerPrototypes;
@@ -69,4 +70,8 @@ public class GovernmentManager
             }
 
         }
+
+    public void tic()
+    {
+    }
 }

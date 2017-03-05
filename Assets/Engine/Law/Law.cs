@@ -40,8 +40,8 @@ public class Law: IXmlSerializable, IParametrizable {
     }
     public class GenericAction : IGenericAction
     {
-        string type;
-        string value;
+        public string type;
+        public string value;
 
         public GenericAction(string paramType, string actionName)
         {
@@ -84,9 +84,10 @@ public class Law: IXmlSerializable, IParametrizable {
                     }
                     else if (reader.Name.Equals("Action"))
                     {
-                        string paramType = reader.GetAttribute("type");
+                        string actionType = reader.GetAttribute("type");
+                        if (actionType == null) actionType = "lua";
                         string actionName = reader.ReadElementContentAsString();
-                        actions[paramType] = new GenericAction(paramType, actionName);
+                        actions[actionType] = new GenericAction(actionType, actionName);
                     } else if (reader.Name.Equals("Gui"))
                     {
                         XmlReader reader2 = reader.ReadSubtree();
@@ -133,5 +134,17 @@ public class Law: IXmlSerializable, IParametrizable {
     {
         Debug.Log(string.Format("Setting parameter {0} of {1} to {2}.", name, this.name, value));
         (parameters[name] as GenericParameter).value = value.ToString();
+    }
+
+    public void OnEvent(string eventname)
+    {
+        if(actions.ContainsKey(eventname) && (actions[name] as GenericAction) != null)
+        {
+            GenericAction act = (actions[name] as GenericAction);
+            if (act.type.Equals("lua"))
+            {
+                //LUAManager.run("law", act.value);
+            }
+        }
     }
 }

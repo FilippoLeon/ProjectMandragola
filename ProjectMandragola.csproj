@@ -88,10 +88,11 @@
     <Compile Include="Assets\Engine\Government\Body.cs" />
     <Compile Include="Assets\Engine\Government\Government.cs" />
     <Compile Include="Assets\Engine\Government\GovnermentManager.cs" />
-    <Compile Include="Assets\Engine\Government\Law.cs" />
     <Compile Include="Assets\Engine\Government\Power.cs" />
     <Compile Include="Assets\Engine\Government\Stage.cs" />
     <Compile Include="Assets\Engine\Interfaces\IParametrizable.cs" />
+    <Compile Include="Assets\Engine\Interfaces\ITickable.cs" />
+    <Compile Include="Assets\Engine\Law\Law.cs" />
     <Compile Include="Assets\Engine\Law\LawManager.cs" />
     <Compile Include="Assets\Engine\Region.cs" />
     <Compile Include="Assets\Engine\State.cs" />

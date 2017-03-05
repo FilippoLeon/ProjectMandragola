@@ -174,5 +174,7 @@ public class World {
         {
             region.tic();
         }
+        governmentManager.tic();
+        lawManager.tic();
     }
 }
