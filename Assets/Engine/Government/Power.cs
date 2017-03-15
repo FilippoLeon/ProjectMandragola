@@ -12,6 +12,8 @@ public class Power : IXmlSerializable, ICloneable
     public Government.Branch branch = Government.Branch.None;
     public string id;
     public string name;
+    // Type of power, delegate to subclass? TODO
+    public string type; 
     public List<Stage> stages = new List<Stage>();
 
     XmlSchema IXmlSerializable.GetSchema()
@@ -19,7 +21,7 @@ public class Power : IXmlSerializable, ICloneable
         return null;
     }
 
-    public void ReadXml(XmlReader reader)
+    virtual public void ReadXml(XmlReader reader)
     {
         reader.MoveToContent();
 
@@ -50,7 +52,8 @@ public class Power : IXmlSerializable, ICloneable
     {
         throw new NotImplementedException();
     }
-    public object Clone()
+
+    virtual public object Clone()
     {
         Power pow = new Power();
         pow.branch = branch;
@@ -66,5 +69,20 @@ public class Power : IXmlSerializable, ICloneable
         );
 
         return pow;
-}
+    }
+
+    public void Copy(Power other)
+    {
+        branch = other.branch;
+        id = other.id;
+        name = other.name;
+        stages = new List<Stage>(
+            other.stages.Select((Stage x) => {
+                Stage y = x.Clone() as Stage;
+                y.parent = this;
+                return y;
+            }
+            )
+        );
+    }
 }

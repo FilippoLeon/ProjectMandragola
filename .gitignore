@@ -14,3 +14,7 @@ Temp
 *.csproj
 *.pidb
 *.sln
+/Library
+/.vs/ProjectMandragola/v15
+/Library
+/Library/shadercompiler-UnityShaderCompiler.exe0.log

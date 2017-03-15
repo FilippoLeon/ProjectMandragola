@@ -20,9 +20,13 @@ public class Stage : IXmlSerializable, ICloneable
     public Power parent;
     public string icon;
 
-    public Stage() { }
+    public Stage() {
+        
+    }
 
-    public Stage(Power parent_) { parent = parent_; }
+    public Stage(Power parent_) : this() {
+        parent = parent_;
+    }
 
     bool canTrigger()
     {
@@ -46,6 +50,8 @@ public class Stage : IXmlSerializable, ICloneable
         id = reader.GetAttribute("id");
         name = reader.GetAttribute("name");
         if (name == null) name = id;
+
+        icon = id; // SpriteLoader.tryLoadSprite("power_stage", id);
 
         while (reader.Read())
         {

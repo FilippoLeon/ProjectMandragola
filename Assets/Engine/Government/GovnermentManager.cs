@@ -51,7 +51,7 @@ public class GovernmentManager
                         }
                         else if (reader.Name.Equals("Body"))
                         {
-                            Body body = new Body();
+                            Body body = new Body(null);
                             body.ReadXml(reader.ReadSubtree());
                             bodyPrototypes.Add(body);
                         }

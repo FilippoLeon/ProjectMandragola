@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class WindowWidget : MonoBehaviour {
 
-    GameObject resizeBox;
-    Text title;
+    public GameObject resizeBox;
+    public Text title;
 
     private GameObject content_;
     public GameObject content
@@ -32,7 +32,8 @@ public class WindowWidget : MonoBehaviour {
     static public Size2 margin = new Size2(8, 8);
 
     private Size2 minimumSize_;
-    public Size2 minimumSize { get
+    public Size2 minimumSize {
+        get
         {
             return minimumSize_;
         }
@@ -43,18 +44,61 @@ public class WindowWidget : MonoBehaviour {
         }
     }
 
-    void adaptSizeToContent()
+    private ResizePanel resizePanel_;
+    public ResizePanel resizePanel
     {
-        if (resizeBox != null)
-            resizeBox.GetComponent<ResizePanel>().minSize = minimumSize_.ToVector2();
-        if (content_ != null && content_.GetComponent<DynamicXmlWidget>() != null)
-            (transform as RectTransform).sizeDelta = content_.GetComponent<DynamicXmlWidget>().minimumSize.ToVector2();
+        get
+        {
+            if (resizePanel_ == null)
+            {
+                resizePanel_ = resizeBox.GetComponent<ResizePanel>();
+                if (resizePanel_ == null) {
+                    Debug.LogError("ResizeBox has no ResizePanel!");
+                }
+            }
+            return resizePanel_;
+        }
+
+        set
+        {
+            resizePanel_ = value;
+        }
     }
 
+    /// <summary>
+    /// Set minimum size for resize to the minimum size of the window, set content size to that of the window.
+    /// </summary>
+    void adaptSizeToContent()
+    {
+        if (resizePanel != null)
+            resizePanel.minSize = minimumSize_.ToVector2() + margin.ToVector2();
+        (transform as RectTransform).sizeDelta = minimumSize_.ToVector2() + margin.ToVector2();
+        if (content != null && content.GetComponent<DynamicXmlWidget>() != null)
+            (transform as RectTransform).sizeDelta = content.GetComponent<DynamicXmlWidget>().minimumSize.ToVector2() + margin.ToVector2();
+        else if (content != null && content.GetComponent<LayoutElement>() != null)
+        {
+            if (content.GetComponent<LayoutElement>().minWidth < 0 && content.GetComponent<LayoutElement>().minHeight < 0) return;
+            Vector2 size = margin.ToVector2();
+            if (content.GetComponent<LayoutElement>().minWidth >= 0) size.x += content.GetComponent<LayoutElement>().minWidth;
+            if (content.GetComponent<LayoutElement>().minHeight >= 0) size.y += content.GetComponent<LayoutElement>().minHeight;
+            (transform as RectTransform).sizeDelta = size;
+            resizePanel.minSize = size;
+        }
+    }
+
+    void Awake()
+    {
+        resizeBox = transform.Find("ResizeBox").gameObject;
+        if (resizeBox == null)
+        {
+            Debug.LogError("Cannot find ResizeBox child!");
+        }
+    }
+    
     // Use this for initialization
     void Start () {
         findTitle();
-        resizeBox = transform.Find("ResizeBox").gameObject;
+        
         adaptSizeToContent();
         //transform.get
     }

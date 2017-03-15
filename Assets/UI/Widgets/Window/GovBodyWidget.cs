@@ -43,6 +43,7 @@ public class GovBodyWidget : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        
         dropdown = dropdownObject.GetComponent<Dropdown>();
         worldController = worldControllerObject.GetComponent<WorldController>();
         //gameObject.SetActive(false);
@@ -97,7 +98,17 @@ public class GovBodyWidget : MonoBehaviour {
                             () =>
                             {
                                 GameObject window = WindowManager.openEmptyWindow("add_law");
-                                window.GetComponent<WindowWidget>().content.AddComponent<AddLawWidget>();
+                                WindowWidget wid = window.GetComponent<WindowWidget>();
+                                if(wid == null)
+                                {
+                                    Debug.LogError("Failure!");
+                                } else {
+                                    //wid.minimumSize = new Size2(200, 400);
+                                    wid.content.AddComponent<AddLawWidget>();
+                                    wid.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+                                    wid.minimumSize = new Size2(400, 100);
+                                    wid.resizePanel.maxSize = new Vector2(2000, 400);
+                                }
                                 //window.GetComponent<WindowWidget>().setContent(content);
                                 //GameObject go = new GameObject();
                                 //go.AddComponent<DynamicWindow>();

@@ -12,14 +12,15 @@
 	<Sprite start="128,416">speed2</Sprite>
 	<Sprite start="192,416">speed3</Sprite>
 	
-	<Sprite start="0,384">propose_law</Sprite>
-	<Sprite start="32,384">repeal_law</Sprite>
-	<Sprite start="64,384">enforce_law</Sprite>
-	<Sprite start="96,384">edit_law</Sprite>
-	<Sprite start="128,384">veto_law</Sprite>
-	<Sprite start="160,384">accept_law</Sprite>
+	<!-- Category add a reference in to the appropriate dictionary -->
+	<Sprite start="0,384" category="stage">propose_law</Sprite>
+	<Sprite start="32,384" category="stage">repeal_law</Sprite>
+	<Sprite start="64,384" category="stage">enforce_law</Sprite>
+	<Sprite start="96,384" category="stage">edit_law</Sprite>
+	<Sprite start="128,384" category="stage">veto_law</Sprite>
+	<Sprite start="160,384" category="stage">accept_law</Sprite>
 	
-	<Sprite start="0,352">propose_body</Sprite>
+	<Sprite start="0,352" category="stage">appoint_body</Sprite>
 	<Sprite start="32,352">remove_body</Sprite>
 	<Sprite start="64,352">_body</Sprite>
 	<Sprite start="96,352">edit_body</Sprite>

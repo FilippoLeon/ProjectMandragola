@@ -25,6 +25,11 @@ public class Government : IXmlSerializable, ICloneable
         return null;
     }
 
+    public void addPower(Power pw)
+    {
+        powers.Add(pw);
+    }
+
     public void ReadXml(XmlReader reader)
     {
         Branch branch = Branch.None;
@@ -47,7 +52,7 @@ public class Government : IXmlSerializable, ICloneable
                     {
                         //Debug.Log(reader.Name);
                         //Debug.Log(reader.Name);
-                        Body body = new Body();
+                        Body body = new Body(this);
                         body.branch = branch;
                         body.ReadXml(reader.ReadSubtree());
                         bodies.Add(body);
@@ -58,7 +63,7 @@ public class Government : IXmlSerializable, ICloneable
                         Power power = new Power();
                         power.branch = branch;
                         power.ReadXml(reader.ReadSubtree());
-                        powers.Add(power);
+                        addPower(power);
                     } else if (reader.Name.Equals("Legislative"))
                     {
                         branch = Branch.Legislative;

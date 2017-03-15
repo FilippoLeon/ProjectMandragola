@@ -2,6 +2,11 @@
 <Prototypes>
 	<!-- Generic bodies and powers may go here, can be referenced. -->
 	<Body id="generic_person" type="individual"/>
+	<Body id="people" name="people" type="people">
+			<Decision id="majority"></Decision>
+			<Decision id="electoralCollege"></Decision>
+			<Decision id="stv" type="lua">peopleDecisionSTV</Decision>
+	</Body>
 	<Power id="win"/>
 	
 	<!-- All government prototypes with bodies and powers. -->
@@ -10,22 +15,35 @@
 		<Body id="user" name="user" type="user">
 			<!-- Powers to manage members of body -->
 			<!-- Creates New power to select and manage a candidate -->
-			<!-- TODOOOOO replace with POWER?-->
-			<Action type="appoint"> <!-- Same as new <Power> of type "appoint" for this Body. -->
+			<!-- TODO replace with POWER?-->
+		    <!-- Same as new <Power> of type "appoint" for this Body. -->
+			<Management>
+				<Stage id="appoint_body"> 
 					<!-- Requiriment to enact this power -->
-				<Require condition="all">
-					<Body ref="god"/>
-					<Legislative/>
-				</Require>
-			</Action>
-			<Action type="appoint"/>
-			<Action type="approve"/>
-			<Action type="impeach"/>
-			<Action type="" rule="and">
-			</Action>
-			<Action type="delete">
-			</Action>
-			<!-- Condition to start a end-of term -->
+					<Require type="all">
+						<Body ref="god"/>
+						<Legislative/>
+					</Require>
+					<!-- Some sort of check to see if can be triggered -->
+					<Validity type="builtin">hasVacancy</Validity>
+				</Stage>
+				<Stage id="approve_body">
+					<Require type="all">
+						<Body ref="user"/>
+						<Legislative/>
+					</Require>
+				</Stage>
+				<Stage id="edit_body">
+					<Require type="any">
+						<Body ref="user"/>
+						<Legislative/>
+					</Require>
+				</Stage>
+				<Stage id="remove_body"/>
+				<Stage id="delete_body">
+				</Stage>
+			</Management>
+			<!-- Condition to start a end-of term, TODO also encode what happens at the end -->
 			<End condition="all">
 				<Condition type="length">5</Condition>
 				<Condition type="script">endTermUser</Condition>
@@ -36,9 +54,13 @@
 		
 		</Body>
 		<Body id="federalCouncil" type="chamber">
+			<!-- Configuration parameters for body -->
 			<Parameter type="int" name="size">5</Parameter>
 			<Parameter type="lua" name="majority">chamberMajority</Parameter>
-			<Approval/>
+			<!-- How the body obtains is mandate -->
+			<!-- <Mandate/> -->
+			<!-- How the body confirms/denies -->
+			<Decision id="majority"></Decision>
 		</Body>
 		
 		<Action>
@@ -47,9 +69,10 @@
 		
 		<!-- Powers and Bodies here are flagged as legislative -->
 		<Legislative>
-		<!-- TOOD: how to manage branches -->
+		<!-- TODO: how to manage branches -->
 			<!--<Body type=""/>
 			<Member name="user"></Member> -->
+			<!-- Power to manage laws -->
 			<Power id="add_law" name="Add law" type="add_law" level=">0">
 				<Stage id="propose" name="Propose" timeout="10">
 					<Icon name="propose_law"/>
@@ -64,6 +87,8 @@
 						<Body ref="user"/>
 						<Body ref="federalCouncil"/>
 					</Require>
+					<Condition/> <!-- e.g. law must be proposed -->
+					
 				</Stage>
 				<Stage id="veto_law">
 					<Icon name="veto_law"/>
@@ -82,6 +107,7 @@
 					<Icon name="edit_law"/>
 					<Require type="any">
 						<Body ref="user"/>
+						<Body ref="people" decision="stv"/>
 					</Require>
 				</Stage>
 				<Stage id="repeal_law">

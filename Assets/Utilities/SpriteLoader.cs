@@ -17,7 +17,9 @@ public class SpriteLoader : MonoBehaviour {
 
     public Texture2D placeholderTexture;
     static public Sprite placeHolder;
-
+    static public Dictionary<string, Dictionary<string, Sprite>> categories =
+        new Dictionary<string, Dictionary<string, Sprite>>();
+     
     public class SpriteData
     {
         public string name;
@@ -69,6 +71,19 @@ public class SpriteLoader : MonoBehaviour {
         //sprites_____ = sprites.Select(d => d.Value).ToList();
     }
     //public List<Texture> textures_____ = new List<Texture>();
+
+    /// <summary>
+    /// Look up for sprite categories, return wanted sprite if available.
+    /// </summary>
+    /// <param name="category"></param>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    static public Sprite tryLoadSprite(string category, string id)
+    {
+        if (categories.ContainsKey(category) && categories[category].ContainsKey(id))
+            return categories[category][id];
+        return null;
+    }
 
     void loadSpriteSheet(FileInfo path)
     {
@@ -165,6 +180,12 @@ public class SpriteLoader : MonoBehaviour {
                                     //name, pos, dS1, dP1));
                     Debug.Assert(tex != null);
                     sprites[name] = Sprite.Create(tex, new Rect(pos, dS1), dP1, 1);
+                    if (reader.GetAttribute("category") != null)
+                    {
+                        string cat = reader.GetAttribute("category");
+                        if (!categories.ContainsKey(cat)) categories[cat] = new Dictionary<string, Sprite>();
+                        categories[cat][name] = sprites[name];
+                    }
                     Debug.Assert(sprites[name] != null);
                     break;
                 default:
